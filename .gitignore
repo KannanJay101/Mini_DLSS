@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+
+# Data and outputs (large files / generated content)
+data/frames/
+data/triplets/
+data/videos/
+outputs/results/
+
+# CUDA build artifacts
+cuda/*.o
+cuda/*.so
+cuda/*.ptx
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
