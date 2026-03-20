@@ -97,4 +97,4 @@ def run_pipeline(video_path, num_triplets=10):
 
 
 if __name__ == "__main__":
-    run_pipeline("data/videos/gameplay.mp4", num_triplets=10)
+    run_pipeline("data/videos/0320.mp4", num_triplets=10)
