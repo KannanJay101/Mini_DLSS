@@ -10,7 +10,7 @@
 
 #include <cuda_runtime.h>
 #include <math.h>
-#include <stdio.h>
+#include <stdio.h> 
 
 __global__ void psnr_kernel(
     const unsigned char* predicted,    // (H * W * 3) flattened, row-major BGR
