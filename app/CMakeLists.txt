@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(MiniDLSS LANGUAGES CXX)
+project(MiniDLSS LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -60,15 +60,12 @@ if(MINI_DLSS_ENABLE_GUI)
         target_link_libraries(imgui_lib PUBLIC OpenGL::GL)
     endif()
 
-    # tinyfiledialogs (single-file library for native file dialogs)
-    FetchContent_Declare(tinyfiledialogs
-        GIT_REPOSITORY https://github.com/nicbarker/tinyfiledialogs.git
-        GIT_TAG        master)
-    FetchContent_MakeAvailable(tinyfiledialogs)
+    # tinyfiledialogs (vendored — official source is SourceForge, not GitHub)
+    set(TINYFD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/tinyfiledialogs)
     add_library(tinyfiledialogs_lib STATIC
-        ${tinyfiledialogs_SOURCE_DIR}/tinyfiledialogs.c)
+        ${TINYFD_DIR}/tinyfiledialogs.c)
     target_include_directories(tinyfiledialogs_lib PUBLIC
-        ${tinyfiledialogs_SOURCE_DIR})
+        ${TINYFD_DIR})
 endif()
 
 # --- Source files ---
