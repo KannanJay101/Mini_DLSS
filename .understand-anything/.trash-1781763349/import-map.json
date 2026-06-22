@@ -1,0 +1,83 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 40,
+    "filesWithImports": 10,
+    "totalEdges": 23
+  },
+  "importMap": {
+    "app/CMakeLists.txt": [],
+    "app/cuda/blend_host.cu": [],
+    "app/cuda/kernels.h": [],
+    "app/cuda/occlusion_kernel.cu": [],
+    "app/cuda/warp_host.cu": [],
+    "app/src/app.cpp": [
+      "app/src/app.h"
+    ],
+    "app/src/app.h": [
+      "app/src/cuda_backend.h",
+      "app/src/pipeline.h"
+    ],
+    "app/src/blend.cpp": [
+      "app/src/blend.h"
+    ],
+    "app/src/blend.h": [],
+    "app/src/cuda_backend.cpp": [
+      "app/src/cuda_backend.h"
+    ],
+    "app/src/cuda_backend.h": [],
+    "app/src/flow.cpp": [
+      "app/src/flow.h"
+    ],
+    "app/src/flow.h": [],
+    "app/src/gui.cpp": [],
+    "app/src/gui.h": [],
+    "app/src/main.cpp": [
+      "app/src/app.h",
+      "app/src/pipeline.h"
+    ],
+    "app/src/pipeline.cpp": [
+      "app/src/blend.h",
+      "app/src/cuda_backend.h",
+      "app/src/flow.h",
+      "app/src/pipeline.h",
+      "app/src/video_io.h",
+      "app/src/warp.h"
+    ],
+    "app/src/pipeline.h": [],
+    "app/src/systray.cpp": [],
+    "app/src/systray.h": [],
+    "app/src/video_io.cpp": [
+      "app/src/video_io.h"
+    ],
+    "app/src/video_io.h": [],
+    "app/src/warp.cpp": [
+      "app/src/warp.h"
+    ],
+    "app/src/warp.h": [],
+    "CLAUDE.md": [],
+    "cuda/blend_kernel.cu": [],
+    "cuda/Makefile": [],
+    "cuda/psnr_kernel.cu": [],
+    "cuda/warp_kernel.cu": [],
+    "main.py": [
+      "src/baseline.py",
+      "src/evaluate.py",
+      "src/extract.py",
+      "src/flow.py",
+      "src/interpolate.py",
+      "src/triplets.py",
+      "src/warp.py"
+    ],
+    "README.md": [],
+    "requirements.txt": [],
+    "src/__init__.py": [],
+    "src/baseline.py": [],
+    "src/evaluate.py": [],
+    "src/extract.py": [],
+    "src/flow.py": [],
+    "src/interpolate.py": [],
+    "src/triplets.py": [],
+    "src/warp.py": []
+  }
+}

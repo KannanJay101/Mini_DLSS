@@ -1,0 +1,1114 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/src/app.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "App",
+          "startLine": 6,
+          "endLine": 6,
+          "params": []
+        },
+        {
+          "name": "~App",
+          "startLine": 8,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "init",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "update",
+          "startLine": 22,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "status",
+          "startLine": 27,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "lastError",
+          "startLine": 32,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "startProcessing",
+          "startLine": 37,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "cancelProcessing",
+          "startLine": 56,
+          "endLine": 58,
+          "params": []
+        },
+        {
+          "name": "workerThread",
+          "startLine": 60,
+          "endLine": 82,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "App",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "~App",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "update",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "status",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "lastError",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "startProcessing",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "cancelProcessing",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "workerThread",
+          "line": 60,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "~App",
+          "callee": "joinable",
+          "lineNumber": 9
+        },
+        {
+          "caller": "~App",
+          "callee": "store",
+          "lineNumber": 10
+        },
+        {
+          "caller": "~App",
+          "callee": "join",
+          "lineNumber": 11
+        },
+        {
+          "caller": "init",
+          "callee": "init",
+          "lineNumber": 16
+        },
+        {
+          "caller": "init",
+          "callee": "isAvailable",
+          "lineNumber": 17
+        },
+        {
+          "caller": "startProcessing",
+          "callee": "store",
+          "lineNumber": 41
+        },
+        {
+          "caller": "startProcessing",
+          "callee": "clear",
+          "lineNumber": 45
+        },
+        {
+          "caller": "startProcessing",
+          "callee": "joinable",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startProcessing",
+          "callee": "join",
+          "lineNumber": 50
+        },
+        {
+          "caller": "startProcessing",
+          "callee": "std::thread",
+          "lineNumber": 53
+        },
+        {
+          "caller": "cancelProcessing",
+          "callee": "store",
+          "lineNumber": 57
+        },
+        {
+          "caller": "workerThread",
+          "callee": "isAvailable",
+          "lineNumber": 65
+        },
+        {
+          "caller": "workerThread",
+          "callee": "run",
+          "lineNumber": 72
+        },
+        {
+          "caller": "workerThread",
+          "callee": "lastError",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/app.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "isProcessing",
+          "startLine": 30,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "isComplete",
+          "startLine": 31,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "cudaAvailable",
+          "startLine": 36,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "gpuName",
+          "startLine": 37,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "useCuda",
+          "startLine": 38,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "setUseCuda",
+          "startLine": 39,
+          "endLine": 39,
+          "params": [
+            "v"
+          ]
+        },
+        {
+          "name": "setInputPath",
+          "startLine": 42,
+          "endLine": 42,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "setOutputPath",
+          "startLine": 43,
+          "endLine": 43,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "inputPath",
+          "startLine": 44,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "outputPath",
+          "startLine": 45,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "App",
+          "startLine": 19,
+          "endLine": 67,
+          "methods": [
+            "init",
+            "update",
+            "isProcessing",
+            "isComplete",
+            "status",
+            "lastError",
+            "cudaAvailable",
+            "gpuName",
+            "useCuda",
+            "setUseCuda",
+            "setInputPath",
+            "setOutputPath",
+            "inputPath",
+            "outputPath",
+            "startProcessing",
+            "cancelProcessing",
+            "workerThread"
+          ],
+          "properties": [
+            "state_",
+            "cuda_",
+            "useCuda_",
+            "inputPath_",
+            "outputPath_",
+            "worker_",
+            "cancelRequested_",
+            "statusMutex_",
+            "currentStatus_",
+            "errorMsg_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "init",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "update",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "isProcessing",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "isComplete",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "status",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "lastError",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "cudaAvailable",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "gpuName",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "useCuda",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "setUseCuda",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "setInputPath",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "setOutputPath",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "inputPath",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "outputPath",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "startProcessing",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "cancelProcessing",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "App",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cudaAvailable",
+          "callee": "isAvailable",
+          "lineNumber": 36
+        },
+        {
+          "caller": "gpuName",
+          "callee": "gpuName",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 17,
+        "functionCount": 10,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/src/cuda_backend.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "init",
+          "startLine": 11,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "warpFrame",
+          "startLine": 32,
+          "endLine": 49,
+          "params": [
+            "src",
+            "flow",
+            "t",
+            "output"
+          ]
+        },
+        {
+          "name": "blendFrames",
+          "startLine": 51,
+          "endLine": 69,
+          "params": [
+            "warpedA",
+            "warpedC",
+            "mask",
+            "output"
+          ]
+        },
+        {
+          "name": "computeOcclusionMask",
+          "startLine": 71,
+          "endLine": 87,
+          "params": [
+            "flowAC",
+            "flowCA",
+            "threshold",
+            "mask"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "init",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "warpFrame",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "blendFrames",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "computeOcclusionMask",
+          "line": 71,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "init",
+          "callee": "cudaGetDeviceCount",
+          "lineNumber": 14
+        },
+        {
+          "caller": "init",
+          "callee": "cudaGetDeviceProperties",
+          "lineNumber": 21
+        },
+        {
+          "caller": "init",
+          "callee": "static_cast<int>",
+          "lineNumber": 23
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "isContinuous",
+          "lineNumber": 38
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "clone",
+          "lineNumber": 38
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "isContinuous",
+          "lineNumber": 39
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "clone",
+          "lineNumber": 39
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "warp_frame_cuda",
+          "lineNumber": 41
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "reinterpret_cast<const float*>",
+          "lineNumber": 43
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "isContinuous",
+          "lineNumber": 56
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "clone",
+          "lineNumber": 56
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "isContinuous",
+          "lineNumber": 57
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "clone",
+          "lineNumber": 57
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "isContinuous",
+          "lineNumber": 58
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "clone",
+          "lineNumber": 58
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "blend_frames_cuda",
+          "lineNumber": 60
+        },
+        {
+          "caller": "blendFrames",
+          "callee": "reinterpret_cast<const float*>",
+          "lineNumber": 63
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "create",
+          "lineNumber": 74
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "isContinuous",
+          "lineNumber": 76
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "clone",
+          "lineNumber": 76
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "isContinuous",
+          "lineNumber": 77
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "clone",
+          "lineNumber": 77
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "occlusion_mask_cuda",
+          "lineNumber": 79
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "reinterpret_cast<const float*>",
+          "lineNumber": 80
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "reinterpret_cast<const float*>",
+          "lineNumber": 81
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "reinterpret_cast<float*>",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/cuda_backend.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "isAvailable",
+          "startLine": 11,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "gpuName",
+          "startLine": 12,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "vramMB",
+          "startLine": 13,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CudaBackend",
+          "startLine": 8,
+          "endLine": 27,
+          "methods": [
+            "init",
+            "isAvailable",
+            "gpuName",
+            "vramMB",
+            "warpFrame",
+            "blendFrames",
+            "computeOcclusionMask"
+          ],
+          "properties": [
+            "available_",
+            "gpuName_",
+            "vramMB_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "init",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "isAvailable",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "gpuName",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "vramMB",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "warpFrame",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "blendFrames",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "computeOcclusionMask",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "CudaBackend",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/src/main.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 144,
+      "functions": [
+        {
+          "name": "runCli",
+          "startLine": 108,
+          "endLine": 138,
+          "params": [
+            "inputPath",
+            "outputPath",
+            "useCuda"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "runGui",
+          "callee": "glfwSetErrorCallback",
+          "lineNumber": 22
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwInit",
+          "lineNumber": 23
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwWindowHint",
+          "lineNumber": 29
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwWindowHint",
+          "lineNumber": 30
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwWindowHint",
+          "lineNumber": 31
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwWindowHint",
+          "lineNumber": 33
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwCreateWindow",
+          "lineNumber": 36
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwTerminate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwMakeContextCurrent",
+          "lineNumber": 44
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwSwapInterval",
+          "lineNumber": 45
+        },
+        {
+          "caller": "runGui",
+          "callee": "IMGUI_CHECKVERSION",
+          "lineNumber": 48
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::CreateContext",
+          "lineNumber": 49
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::GetIO",
+          "lineNumber": 50
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::StyleColorsDark",
+          "lineNumber": 53
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::GetStyle",
+          "lineNumber": 56
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImVec2",
+          "lineNumber": 60
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImVec2",
+          "lineNumber": 61
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplGlfw_InitForOpenGL",
+          "lineNumber": 63
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplOpenGL3_Init",
+          "lineNumber": 64
+        },
+        {
+          "caller": "runGui",
+          "callee": "init",
+          "lineNumber": 68
+        },
+        {
+          "caller": "runGui",
+          "callee": "init",
+          "lineNumber": 71
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwWindowShouldClose",
+          "lineNumber": 74
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwPollEvents",
+          "lineNumber": 75
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplOpenGL3_NewFrame",
+          "lineNumber": 77
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplGlfw_NewFrame",
+          "lineNumber": 78
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::NewFrame",
+          "lineNumber": 79
+        },
+        {
+          "caller": "runGui",
+          "callee": "update",
+          "lineNumber": 81
+        },
+        {
+          "caller": "runGui",
+          "callee": "draw",
+          "lineNumber": 82
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::Render",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwGetFramebufferSize",
+          "lineNumber": 86
+        },
+        {
+          "caller": "runGui",
+          "callee": "glViewport",
+          "lineNumber": 87
+        },
+        {
+          "caller": "runGui",
+          "callee": "glClearColor",
+          "lineNumber": 88
+        },
+        {
+          "caller": "runGui",
+          "callee": "glClear",
+          "lineNumber": 89
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplOpenGL3_RenderDrawData",
+          "lineNumber": 90
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::GetDrawData",
+          "lineNumber": 90
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwSwapBuffers",
+          "lineNumber": 92
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplOpenGL3_Shutdown",
+          "lineNumber": 96
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui_ImplGlfw_Shutdown",
+          "lineNumber": 97
+        },
+        {
+          "caller": "runGui",
+          "callee": "ImGui::DestroyContext",
+          "lineNumber": 98
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwDestroyWindow",
+          "lineNumber": 100
+        },
+        {
+          "caller": "runGui",
+          "callee": "glfwTerminate",
+          "lineNumber": 101
+        },
+        {
+          "caller": "runCli",
+          "callee": "static_cast<int>",
+          "lineNumber": 124
+        },
+        {
+          "caller": "runCli",
+          "callee": "run",
+          "lineNumber": 128
+        },
+        {
+          "caller": "runCli",
+          "callee": "lastError",
+          "lineNumber": 132
+        },
+        {
+          "caller": "WinMain",
+          "callee": "CommandLineToArgvW",
+          "lineNumber": 145
+        },
+        {
+          "caller": "WinMain",
+          "callee": "GetCommandLineW",
+          "lineNumber": 145
+        },
+        {
+          "caller": "WinMain",
+          "callee": "wcstombs",
+          "lineNumber": 150
+        },
+        {
+          "caller": "WinMain",
+          "callee": "wcstombs",
+          "lineNumber": 151
+        },
+        {
+          "caller": "WinMain",
+          "callee": "LocalFree",
+          "lineNumber": 153
+        },
+        {
+          "caller": "WinMain",
+          "callee": "runCli",
+          "lineNumber": 154
+        },
+        {
+          "caller": "WinMain",
+          "callee": "LocalFree",
+          "lineNumber": 156
+        },
+        {
+          "caller": "WinMain",
+          "callee": "runGui",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "std::string",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "runCli",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "runGui",
+          "lineNumber": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/pipeline.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "lastError",
+          "startLine": 34,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PipelineConfig",
+          "startLine": 9,
+          "endLine": 13,
+          "methods": [],
+          "properties": [
+            "inputPath",
+            "outputPath",
+            "useCuda"
+          ]
+        },
+        {
+          "name": "PipelineStatus",
+          "startLine": 15,
+          "endLine": 20,
+          "methods": [],
+          "properties": [
+            "currentFrame",
+            "totalFrames",
+            "fps",
+            "message"
+          ]
+        },
+        {
+          "name": "Pipeline",
+          "startLine": 25,
+          "endLine": 38,
+          "methods": [
+            "run",
+            "lastError"
+          ],
+          "properties": [
+            "lastError_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PipelineConfig",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "PipelineStatus",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "run",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "lastError",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "Pipeline",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    }
+  ]
+}

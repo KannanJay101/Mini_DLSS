@@ -1,0 +1,84 @@
+[
+  {
+    "id": "layer:python-reference-pipeline",
+    "name": "Python Reference Pipeline (Phase 1)",
+    "description": "The from-scratch Python/OpenCV implementation: extract frames, build triplets, baseline blend, optical flow, occlusion-aware warp/blend, and PSNR/SSIM evaluation. This is the readable reference the native app and CUDA kernels port.",
+    "nodeIds": [
+      "file:main.py",
+      "file:src/__init__.py",
+      "file:src/extract.py",
+      "file:src/triplets.py",
+      "file:src/baseline.py",
+      "file:src/flow.py",
+      "file:src/warp.py",
+      "file:src/interpolate.py",
+      "file:src/evaluate.py"
+    ]
+  },
+  {
+    "id": "layer:native-pipeline-core",
+    "name": "Native Pipeline Core (C++)",
+    "description": "The C++ port of the interpolation algorithms and video I/O — optical flow, warping, occlusion mask/blend, the video reader/writer, the pipeline orchestrator, and the CUDA backend bridge that marshals data to GPU kernels.",
+    "nodeIds": [
+      "file:app/src/flow.h",
+      "file:app/src/flow.cpp",
+      "file:app/src/warp.h",
+      "file:app/src/warp.cpp",
+      "file:app/src/blend.h",
+      "file:app/src/blend.cpp",
+      "file:app/src/video_io.h",
+      "file:app/src/video_io.cpp",
+      "file:app/src/pipeline.h",
+      "file:app/src/pipeline.cpp",
+      "file:app/src/cuda_backend.h",
+      "file:app/src/cuda_backend.cpp"
+    ]
+  },
+  {
+    "id": "layer:application-shell-ui",
+    "name": "Application Shell & UI",
+    "description": "The desktop application around the pipeline: CLI/GUI entry point, the threaded App controller, the Dear ImGui front-end, and the Windows system-tray integration.",
+    "nodeIds": [
+      "file:app/src/app.h",
+      "file:app/src/app.cpp",
+      "file:app/src/main.cpp",
+      "file:app/src/gui.h",
+      "file:app/src/gui.cpp",
+      "file:app/src/systray.h",
+      "file:app/src/systray.cpp"
+    ]
+  },
+  {
+    "id": "layer:cuda-acceleration",
+    "name": "CUDA Acceleration (Phase 2)",
+    "description": "GPU kernels and their host wrappers: standalone teaching kernels (warp/blend/PSNR) and the app-integrated host wrappers (warp/blend/occlusion mask) callable from the C++ CudaBackend via extern-C.",
+    "nodeIds": [
+      "file:cuda/warp_kernel.cu",
+      "file:cuda/blend_kernel.cu",
+      "file:cuda/psnr_kernel.cu",
+      "file:app/cuda/kernels.h",
+      "file:app/cuda/warp_host.cu",
+      "file:app/cuda/blend_host.cu",
+      "file:app/cuda/occlusion_kernel.cu"
+    ]
+  },
+  {
+    "id": "layer:build-configuration",
+    "name": "Build & Configuration",
+    "description": "Build and dependency definitions: the CMake build for the native app (OpenCV/CUDA/GLFW/ImGui), the Makefile for the standalone CUDA kernels, and the Python requirements.",
+    "nodeIds": [
+      "config:app/CMakeLists.txt",
+      "config:cuda/Makefile",
+      "config:requirements.txt"
+    ]
+  },
+  {
+    "id": "layer:documentation",
+    "name": "Documentation",
+    "description": "Project documentation: the README overview and the CLAUDE.md repository guide.",
+    "nodeIds": [
+      "document:README.md",
+      "document:CLAUDE.md"
+    ]
+  }
+]

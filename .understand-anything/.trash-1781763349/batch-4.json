@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "config:requirements.txt",
+      "type": "config",
+      "name": "requirements.txt",
+      "filePath": "requirements.txt",
+      "language": "txt",
+      "summary": "Python dependencies: OpenCV, NumPy, scikit-image (reference SSIM), and PyCUDA (Phase-2 GPU integration).",
+      "tags": [
+        "dependencies",
+        "python",
+        "requirements"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "language": "markdown",
+      "summary": "Project overview: explains the A/C->B interpolation concept, the seven pipeline stages, the directory layout, and quickstart usage.",
+      "tags": [
+        "documentation",
+        "overview",
+        "readme"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "language": "markdown",
+      "summary": "Repository guide for Claude Code: how to run the pipeline and standalone modules, build the CUDA kernels, the module data contract, and data layout.",
+      "tags": [
+        "documentation",
+        "guide",
+        "claude"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:requirements.txt",
+      "target": "file:main.py",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "config:cuda/Makefile",
+      "type": "documents",
+      "weight": 0.5
+    }
+  ]
+}

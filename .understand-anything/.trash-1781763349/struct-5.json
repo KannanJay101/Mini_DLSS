@@ -1,0 +1,751 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 14,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/CMakeLists.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 141,
+      "nonEmptyLines": 119,
+      "metrics": {}
+    },
+    {
+      "path": "app/cuda/blend_host.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 54,
+      "metrics": {}
+    },
+    {
+      "path": "app/cuda/kernels.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 34,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/cuda/occlusion_kernel.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 90,
+      "metrics": {}
+    },
+    {
+      "path": "app/cuda/warp_host.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 68,
+      "metrics": {}
+    },
+    {
+      "path": "app/src/gui.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 149,
+      "callGraph": [
+        {
+          "caller": "draw",
+          "callee": "ImGui::GetMainViewport",
+          "lineNumber": 18
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::SetNextWindowPos",
+          "lineNumber": 19
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::SetNextWindowSize",
+          "lineNumber": 20
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Begin",
+          "lineNumber": 26
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 28
+        },
+        {
+          "caller": "draw",
+          "callee": "ImVec4",
+          "lineNumber": 28
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Separator",
+          "lineNumber": 30
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 31
+        },
+        {
+          "caller": "draw",
+          "callee": "drawBackendInfo",
+          "lineNumber": 33
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 34
+        },
+        {
+          "caller": "draw",
+          "callee": "drawFileSelection",
+          "lineNumber": 35
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 36
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Separator",
+          "lineNumber": 37
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 38
+        },
+        {
+          "caller": "draw",
+          "callee": "drawControls",
+          "lineNumber": 39
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 40
+        },
+        {
+          "caller": "draw",
+          "callee": "drawProgress",
+          "lineNumber": 41
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::Spacing",
+          "lineNumber": 42
+        },
+        {
+          "caller": "draw",
+          "callee": "drawStatus",
+          "lineNumber": 43
+        },
+        {
+          "caller": "draw",
+          "callee": "ImGui::End",
+          "lineNumber": 45
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "isProcessing",
+          "lineNumber": 49
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::BeginDisabled",
+          "lineNumber": 51
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::Text",
+          "lineNumber": 54
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 55
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SetNextItemWidth",
+          "lineNumber": 56
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::GetContentRegionAvail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::InputText",
+          "lineNumber": 57
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 59
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::Button",
+          "lineNumber": 60
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "tinyfd_openFileDialog",
+          "lineNumber": 62
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "strncpy",
+          "lineNumber": 65
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "rfind",
+          "lineNumber": 68
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "substr",
+          "lineNumber": 70
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "substr",
+          "lineNumber": 70
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "strncpy",
+          "lineNumber": 71
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "c_str",
+          "lineNumber": 71
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "setInputPath",
+          "lineNumber": 73
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "setOutputPath",
+          "lineNumber": 74
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::Text",
+          "lineNumber": 79
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 80
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SetNextItemWidth",
+          "lineNumber": 81
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::GetContentRegionAvail",
+          "lineNumber": 81
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::InputText",
+          "lineNumber": 82
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 84
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::Button",
+          "lineNumber": 85
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "tinyfd_saveFileDialog",
+          "lineNumber": 87
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "strncpy",
+          "lineNumber": 90
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "setOutputPath",
+          "lineNumber": 91
+        },
+        {
+          "caller": "drawFileSelection",
+          "callee": "ImGui::EndDisabled",
+          "lineNumber": 95
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "cudaAvailable",
+          "lineNumber": 99
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 100
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "ImVec4",
+          "lineNumber": 100
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "c_str",
+          "lineNumber": 101
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "gpuName",
+          "lineNumber": 101
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "useCuda",
+          "lineNumber": 102
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "ImGui::Checkbox",
+          "lineNumber": 103
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "setUseCuda",
+          "lineNumber": 104
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 107
+        },
+        {
+          "caller": "drawBackendInfo",
+          "callee": "ImVec4",
+          "lineNumber": 107
+        },
+        {
+          "caller": "drawControls",
+          "callee": "isProcessing",
+          "lineNumber": 113
+        },
+        {
+          "caller": "drawControls",
+          "callee": "strlen",
+          "lineNumber": 114
+        },
+        {
+          "caller": "drawControls",
+          "callee": "strlen",
+          "lineNumber": 115
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::BeginDisabled",
+          "lineNumber": 117
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::Button",
+          "lineNumber": 118
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImVec2",
+          "lineNumber": 118
+        },
+        {
+          "caller": "drawControls",
+          "callee": "startProcessing",
+          "lineNumber": 119
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::EndDisabled",
+          "lineNumber": 121
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 123
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::BeginDisabled",
+          "lineNumber": 125
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::Button",
+          "lineNumber": 126
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImVec2",
+          "lineNumber": 126
+        },
+        {
+          "caller": "drawControls",
+          "callee": "cancelProcessing",
+          "lineNumber": 127
+        },
+        {
+          "caller": "drawControls",
+          "callee": "ImGui::EndDisabled",
+          "lineNumber": 129
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "isProcessing",
+          "lineNumber": 133
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "isComplete",
+          "lineNumber": 133
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "status",
+          "lineNumber": 135
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "static_cast<float>",
+          "lineNumber": 137
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::ProgressBar",
+          "lineNumber": 140
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImVec2",
+          "lineNumber": 140
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::Text",
+          "lineNumber": 143
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 149
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::Text",
+          "lineNumber": 149
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::SameLine",
+          "lineNumber": 151
+        },
+        {
+          "caller": "drawProgress",
+          "callee": "ImGui::Text",
+          "lineNumber": 151
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "status",
+          "lineNumber": 157
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "isComplete",
+          "lineNumber": 159
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "empty",
+          "lineNumber": 160
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "lastError",
+          "lineNumber": 160
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 161
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImVec4",
+          "lineNumber": 161
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 164
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImVec4",
+          "lineNumber": 164
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "c_str",
+          "lineNumber": 165
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "lastError",
+          "lineNumber": 165
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "isProcessing",
+          "lineNumber": 167
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImGui::Text",
+          "lineNumber": 168
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "c_str",
+          "lineNumber": 168
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImGui::TextColored",
+          "lineNumber": 170
+        },
+        {
+          "caller": "drawStatus",
+          "callee": "ImVec4",
+          "lineNumber": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/gui.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/systray.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 52,
+      "callGraph": [
+        {
+          "caller": "init",
+          "callee": "memset",
+          "lineNumber": 13
+        },
+        {
+          "caller": "init",
+          "callee": "LoadIcon",
+          "lineNumber": 19
+        },
+        {
+          "caller": "init",
+          "callee": "wcscpy_s",
+          "lineNumber": 20
+        },
+        {
+          "caller": "show",
+          "callee": "Shell_NotifyIconW",
+          "lineNumber": 25
+        },
+        {
+          "caller": "hide",
+          "callee": "Shell_NotifyIconW",
+          "lineNumber": 32
+        },
+        {
+          "caller": "showBalloon",
+          "callee": "wcscpy_s",
+          "lineNumber": 39
+        },
+        {
+          "caller": "showBalloon",
+          "callee": "wcscpy_s",
+          "lineNumber": 40
+        },
+        {
+          "caller": "showBalloon",
+          "callee": "Shell_NotifyIconW",
+          "lineNumber": 42
+        },
+        {
+          "caller": "destroy",
+          "callee": "hide",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleMessage",
+          "callee": "LOWORD",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleMessage",
+          "callee": "ShowWindow",
+          "lineNumber": 53
+        },
+        {
+          "caller": "handleMessage",
+          "callee": "SetForegroundWindow",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleMessage",
+          "callee": "hide",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/systray.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "cuda/blend_kernel.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 36,
+      "metrics": {}
+    },
+    {
+      "path": "cuda/Makefile",
+      "language": "makefile",
+      "fileCategory": "infra",
+      "totalLines": 89,
+      "nonEmptyLines": 73,
+      "steps": [
+        {
+          "name": "all",
+          "startLine": 41,
+          "endLine": 43
+        },
+        {
+          "name": "psnr",
+          "startLine": 44,
+          "endLine": 44
+        },
+        {
+          "name": "warp",
+          "startLine": 45,
+          "endLine": 45
+        },
+        {
+          "name": "blend",
+          "startLine": 46,
+          "endLine": 47
+        },
+        {
+          "name": "clean",
+          "startLine": 75,
+          "endLine": 75
+        },
+        {
+          "name": "check",
+          "startLine": 84,
+          "endLine": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "stepCount": 6
+      }
+    },
+    {
+      "path": "cuda/psnr_kernel.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 79,
+      "metrics": {}
+    },
+    {
+      "path": "cuda/warp_kernel.cu",
+      "language": "cu",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 57,
+      "metrics": {}
+    },
+    {
+      "path": "src/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

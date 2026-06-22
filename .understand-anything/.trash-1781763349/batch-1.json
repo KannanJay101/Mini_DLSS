@@ -1,0 +1,499 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/src/flow.h",
+      "type": "file",
+      "name": "flow.h",
+      "filePath": "app/src/flow.h",
+      "language": "cpp",
+      "summary": "Declares the C++ Farneback optical-flow function for the native pipeline.",
+      "tags": [
+        "header",
+        "optical-flow",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/flow.cpp",
+      "type": "file",
+      "name": "flow.cpp",
+      "filePath": "app/src/flow.cpp",
+      "language": "cpp",
+      "summary": "C++ port of optical flow: dense Farneback A->C returning a CV_32FC2 dx/dy field.",
+      "tags": [
+        "optical-flow",
+        "farneback",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/warp.h",
+      "type": "file",
+      "name": "warp.h",
+      "filePath": "app/src/warp.h",
+      "language": "cpp",
+      "summary": "Declares the C++ flow-based frame warp function.",
+      "tags": [
+        "header",
+        "warp",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/warp.cpp",
+      "type": "file",
+      "name": "warp.cpp",
+      "filePath": "app/src/warp.cpp",
+      "language": "cpp",
+      "summary": "C++ port of frame warping: builds coordinate grids and inverse-warps with cv::remap bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/src/blend.h",
+      "type": "file",
+      "name": "blend.h",
+      "filePath": "app/src/blend.h",
+      "language": "cpp",
+      "summary": "Declares the occlusion mask and occlusion-aware blend functions for the C++ pipeline.",
+      "tags": [
+        "header",
+        "occlusion",
+        "blend",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/blend.cpp",
+      "type": "file",
+      "name": "blend.cpp",
+      "filePath": "app/src/blend.cpp",
+      "language": "cpp",
+      "summary": "C++ port of occlusion handling: forward-backward consistency mask and mask-weighted blend of two warped frames.",
+      "tags": [
+        "occlusion",
+        "blend",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/video_io.h",
+      "type": "file",
+      "name": "video_io.h",
+      "filePath": "app/src/video_io.h",
+      "language": "cpp",
+      "summary": "Declares VideoReader/VideoWriter wrappers and the VideoInfo struct over OpenCV videoio.",
+      "tags": [
+        "header",
+        "video-io",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/video_io.cpp",
+      "type": "file",
+      "name": "video_io.cpp",
+      "filePath": "app/src/video_io.cpp",
+      "language": "cpp",
+      "summary": "OpenCV video I/O: reader that probes resolution/fps/frame-count and a writer with H.264->mp4v->XVID->MJPG codec fallback.",
+      "tags": [
+        "video-io",
+        "opencv",
+        "codec",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/src/pipeline.cpp",
+      "type": "file",
+      "name": "pipeline.cpp",
+      "filePath": "app/src/pipeline.cpp",
+      "language": "cpp",
+      "summary": "Native video-to-video pipeline: reads frames, interpolates each consecutive pair (CUDA or CPU path), and writes interpolated+real frames at 2x FPS with progress reporting and cancellation.",
+      "tags": [
+        "pipeline",
+        "orchestration",
+        "interpolation",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoReader",
+      "type": "class",
+      "name": "VideoReader",
+      "filePath": "app/src/video_io.h",
+      "summary": "OpenCV-backed reader that probes video metadata and yields frames.",
+      "tags": [
+        "video-io"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoWriter",
+      "type": "class",
+      "name": "VideoWriter",
+      "filePath": "app/src/video_io.h",
+      "summary": "OpenCV-backed writer with multi-codec fallback.",
+      "tags": [
+        "video-io",
+        "codec"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoInfo",
+      "type": "class",
+      "name": "VideoInfo",
+      "filePath": "app/src/video_io.h",
+      "summary": "Struct holding width, height, fps, and frame count.",
+      "tags": [
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "function",
+      "name": "computeOpticalFlow",
+      "filePath": "app/src/flow.cpp",
+      "summary": "C++ dense Farneback optical flow A->C returning a CV_32FC2 field.",
+      "tags": [
+        "optical-flow",
+        "farneback"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/warp.cpp:warpFrame",
+      "type": "function",
+      "name": "warpFrame",
+      "filePath": "app/src/warp.cpp",
+      "summary": "C++ inverse warp: builds coordinate grids and remaps the frame by t*flow with bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "function",
+      "name": "computeOcclusionMask",
+      "filePath": "app/src/blend.cpp",
+      "summary": "C++ forward-backward consistency mask via cv::remap and exp(-error/threshold).",
+      "tags": [
+        "occlusion"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/blend.cpp:blendWithMask",
+      "type": "function",
+      "name": "blendWithMask",
+      "filePath": "app/src/blend.cpp",
+      "summary": "C++ occlusion-weighted blend: mask*warpedA + (1-mask)*warpedC.",
+      "tags": [
+        "blend",
+        "occlusion"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "function",
+      "name": "Pipeline::run",
+      "filePath": "app/src/pipeline.cpp",
+      "summary": "Opens input/output video, optionally inits CUDA, then interpolates every consecutive pair, writing interpolated+real frames at 2x FPS with progress and cancellation.",
+      "tags": [
+        "pipeline",
+        "orchestration"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "function",
+      "name": "interpolatePair",
+      "filePath": "app/src/pipeline.cpp",
+      "summary": "Interpolates one frame pair: bidirectional flow then occlusion-aware warp/blend, choosing the CUDA or CPU path.",
+      "tags": [
+        "interpolation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "function",
+      "name": "VideoReader::open",
+      "filePath": "app/src/video_io.cpp",
+      "summary": "Opens a video and reads its resolution, fps, and frame count.",
+      "tags": [
+        "video-io"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "function",
+      "name": "VideoWriter::open",
+      "filePath": "app/src/video_io.cpp",
+      "summary": "Opens an output video, trying codecs in preference order until one succeeds.",
+      "tags": [
+        "video-io",
+        "codec"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoReader",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoWriter",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoInfo",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/flow.cpp",
+      "target": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/warp.cpp",
+      "target": "function:app/src/warp.cpp:warpFrame",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "function:app/src/blend.cpp:blendWithMask",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "file:app/src/blend.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/flow.cpp",
+      "target": "file:app/src/flow.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/blend.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/flow.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/video_io.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/warp.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "file:app/src/video_io.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/warp.cpp",
+      "target": "file:app/src/warp.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:Pipeline::run",
+      "target": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/warp.cpp:warpFrame",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/blend.cpp:blendWithMask",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app/src/video_io.h:VideoReader",
+      "target": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/video_io.h:VideoWriter",
+      "target": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "function:app/src/flow.cpp:computeOpticalFlow",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/warp.cpp:warpFrame",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/blend.cpp:computeOcclusionMask",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/blend.cpp:blendWithMask",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/warp.cpp:warpFrame",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/blend.cpp:blendWithMask",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:app/src/blend.cpp:computeOcclusionMask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/src/flow.cpp",
+      "target": "file:app/src/flow.h",
+      "type": "imports",
+      "weight": 0.7
+    }
+  ]
+}

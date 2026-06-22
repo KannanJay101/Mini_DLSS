@@ -1,0 +1,1578 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "0ddc7a304e295378fbad9947879d86fa93918329",
+  "generatedAt": "2026-06-18T06:15:40.730Z",
+  "files": {
+    "app/CMakeLists.txt": {
+      "filePath": "app/CMakeLists.txt",
+      "contentHash": "c2745ea06c8d8560857783c6c806988bf0e4951b249a7a750010c46850a18e81",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 142,
+      "hasStructuralAnalysis": false
+    },
+    "app/cuda/blend_host.cu": {
+      "filePath": "app/cuda/blend_host.cu",
+      "contentHash": "6d13450a4fa18817c5b3babf8a1c3d4ccb51d92523588fa0336c12a5f92ae7e1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": false
+    },
+    "app/cuda/kernels.h": {
+      "filePath": "app/cuda/kernels.h",
+      "contentHash": "bb8db1d364d49f5b00ec24b57f1bce5eab91b08ff099bb5ba02099526354df3a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "app/cuda/occlusion_kernel.cu": {
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "contentHash": "aaa76dd689037ae01f1ed019e6fc745bdf42803f707295f107c7d5b98c0fed8e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 113,
+      "hasStructuralAnalysis": false
+    },
+    "app/cuda/warp_host.cu": {
+      "filePath": "app/cuda/warp_host.cu",
+      "contentHash": "5bffe370b8b72110f1fdc1d47286878922aa1e8cf9fbf26df05eb9e91afb3f32",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": false
+    },
+    "app/src/app.cpp": {
+      "filePath": "app/src/app.cpp",
+      "contentHash": "6e7747bbaa28f2d0f17b416461f92b8ac43482816f9f5abc5566da380afcb4cd",
+      "functions": [
+        {
+          "name": "App",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "~App",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "init",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "update",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "status",
+          "params": [],
+          "returnType": "PipelineStatus",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "lastError",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "startProcessing",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "cancelProcessing",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "workerThread",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "app.h",
+          "specifiers": [
+            "app.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        }
+      ],
+      "exports": [
+        "App",
+        "~App",
+        "init",
+        "update",
+        "status",
+        "lastError",
+        "startProcessing",
+        "cancelProcessing",
+        "workerThread"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/app.h": {
+      "filePath": "app/src/app.h",
+      "contentHash": "2a5f6d44b2959594316292c44a84fb610015408755542dc244b2f201162f22a6",
+      "functions": [
+        {
+          "name": "isProcessing",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isComplete",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "cudaAvailable",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "gpuName",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "useCuda",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setUseCuda",
+          "params": [
+            "v"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setInputPath",
+          "params": [
+            "p"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setOutputPath",
+          "params": [
+            "p"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "inputPath",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "outputPath",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "App",
+          "methods": [
+            "init",
+            "update",
+            "isProcessing",
+            "isComplete",
+            "status",
+            "lastError",
+            "cudaAvailable",
+            "gpuName",
+            "useCuda",
+            "setUseCuda",
+            "setInputPath",
+            "setOutputPath",
+            "inputPath",
+            "outputPath",
+            "startProcessing",
+            "cancelProcessing",
+            "workerThread"
+          ],
+          "properties": [
+            "state_",
+            "cuda_",
+            "useCuda_",
+            "inputPath_",
+            "outputPath_",
+            "worker_",
+            "cancelRequested_",
+            "statusMutex_",
+            "currentStatus_",
+            "errorMsg_"
+          ],
+          "exported": true,
+          "lineCount": 49
+        }
+      ],
+      "imports": [
+        {
+          "source": "pipeline.h",
+          "specifiers": [
+            "pipeline.h"
+          ]
+        },
+        {
+          "source": "cuda_backend.h",
+          "specifiers": [
+            "cuda_backend.h"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        },
+        {
+          "source": "atomic",
+          "specifiers": [
+            "atomic"
+          ]
+        },
+        {
+          "source": "mutex",
+          "specifiers": [
+            "mutex"
+          ]
+        },
+        {
+          "source": "thread",
+          "specifiers": [
+            "thread"
+          ]
+        }
+      ],
+      "exports": [
+        "init",
+        "update",
+        "isProcessing",
+        "isComplete",
+        "status",
+        "lastError",
+        "cudaAvailable",
+        "gpuName",
+        "useCuda",
+        "setUseCuda",
+        "setInputPath",
+        "setOutputPath",
+        "inputPath",
+        "outputPath",
+        "startProcessing",
+        "cancelProcessing",
+        "App"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/blend.cpp": {
+      "filePath": "app/src/blend.cpp",
+      "contentHash": "aa5f5fd6fc6ae60ed7d5b03f039fabfada7f73ce226d36ba3b62387fe7ce8627",
+      "functions": [
+        {
+          "name": "computeOcclusionMask",
+          "params": [
+            "flowAC",
+            "flowCA",
+            "threshold"
+          ],
+          "returnType": "cv::Mat",
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "blendWithMask",
+          "params": [
+            "warpedA",
+            "warpedC",
+            "mask"
+          ],
+          "returnType": "cv::Mat",
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "blend.h",
+          "specifiers": [
+            "blend.h"
+          ]
+        },
+        {
+          "source": "opencv2/imgproc.hpp",
+          "specifiers": [
+            "opencv2/imgproc.hpp"
+          ]
+        },
+        {
+          "source": "cmath",
+          "specifiers": [
+            "cmath"
+          ]
+        }
+      ],
+      "exports": [
+        "computeOcclusionMask",
+        "blendWithMask"
+      ],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/blend.h": {
+      "filePath": "app/src/blend.h",
+      "contentHash": "d3fdef966034d651a02445e2881785dd0adf5f9140a194bb668df9595dfd6743",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "opencv2/core.hpp",
+          "specifiers": [
+            "opencv2/core.hpp"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/cuda_backend.cpp": {
+      "filePath": "app/src/cuda_backend.cpp",
+      "contentHash": "d05d8d33504598a89dbebb1c1cafb216b56e12c16dbe91ba7ddeaaf565bba43b",
+      "functions": [
+        {
+          "name": "init",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "warpFrame",
+          "params": [
+            "src",
+            "flow",
+            "t",
+            "output"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "blendFrames",
+          "params": [
+            "warpedA",
+            "warpedC",
+            "mask",
+            "output"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "computeOcclusionMask",
+          "params": [
+            "flowAC",
+            "flowCA",
+            "threshold",
+            "mask"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cuda_backend.h",
+          "specifiers": [
+            "cuda_backend.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        }
+      ],
+      "exports": [
+        "init",
+        "warpFrame",
+        "blendFrames",
+        "computeOcclusionMask"
+      ],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/cuda_backend.h": {
+      "filePath": "app/src/cuda_backend.h",
+      "contentHash": "2258bd75c5cab749318c2fe423562afbdf8be5a1dc4f6b887214436c62fbeaa3",
+      "functions": [
+        {
+          "name": "isAvailable",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "gpuName",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "vramMB",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "CudaBackend",
+          "methods": [
+            "init",
+            "isAvailable",
+            "gpuName",
+            "vramMB",
+            "warpFrame",
+            "blendFrames",
+            "computeOcclusionMask"
+          ],
+          "properties": [
+            "available_",
+            "gpuName_",
+            "vramMB_"
+          ],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "imports": [
+        {
+          "source": "opencv2/core.hpp",
+          "specifiers": [
+            "opencv2/core.hpp"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        }
+      ],
+      "exports": [
+        "init",
+        "isAvailable",
+        "gpuName",
+        "vramMB",
+        "warpFrame",
+        "blendFrames",
+        "computeOcclusionMask",
+        "CudaBackend"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/flow.cpp": {
+      "filePath": "app/src/flow.cpp",
+      "contentHash": "d2c831322bcbc5196380eee5d1957478f6ac426e9aba4174d7d9005cd8393435",
+      "functions": [
+        {
+          "name": "computeOpticalFlow",
+          "params": [
+            "frameA",
+            "frameC"
+          ],
+          "returnType": "cv::Mat",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "flow.h",
+          "specifiers": [
+            "flow.h"
+          ]
+        },
+        {
+          "source": "opencv2/imgproc.hpp",
+          "specifiers": [
+            "opencv2/imgproc.hpp"
+          ]
+        },
+        {
+          "source": "opencv2/video.hpp",
+          "specifiers": [
+            "opencv2/video.hpp"
+          ]
+        }
+      ],
+      "exports": [
+        "computeOpticalFlow"
+      ],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/flow.h": {
+      "filePath": "app/src/flow.h",
+      "contentHash": "67f469201358b8f11611cb544d67af44a5bdda825d9fc744abb5f078b6150f3b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "opencv2/core.hpp",
+          "specifiers": [
+            "opencv2/core.hpp"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/gui.cpp": {
+      "filePath": "app/src/gui.cpp",
+      "contentHash": "cd9939685df1d7299f3ce3a28e130fa0813bb505881b268fb68e16ce8cb1aa03",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 177,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/gui.h": {
+      "filePath": "app/src/gui.h",
+      "contentHash": "f36e39de7f69b97a5e6c8b5d7b3d31c098b4c5d1bdabba20f289ffb1917e6743",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/main.cpp": {
+      "filePath": "app/src/main.cpp",
+      "contentHash": "ed681381064ae6b8d85cffee8f8f95e3ec1eecd2c1273425235622c4d0615a87",
+      "functions": [
+        {
+          "name": "runCli",
+          "params": [
+            "inputPath",
+            "outputPath",
+            "useCuda"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "app.h",
+          "specifiers": [
+            "app.h"
+          ]
+        },
+        {
+          "source": "pipeline.h",
+          "specifiers": [
+            "pipeline.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        },
+        {
+          "source": "atomic",
+          "specifiers": [
+            "atomic"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 177,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/pipeline.cpp": {
+      "filePath": "app/src/pipeline.cpp",
+      "contentHash": "8c84a66d1c55c9827a535158d9b310a3fcb840a53605caf2a2ef85143b27a80a",
+      "functions": [
+        {
+          "name": "interpolatePair",
+          "params": [
+            "frameA",
+            "frameC",
+            "cuda"
+          ],
+          "returnType": "cv::Mat",
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "run",
+          "params": [
+            "config",
+            "cancelRequested",
+            "progressCb"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 107
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pipeline.h",
+          "specifiers": [
+            "pipeline.h"
+          ]
+        },
+        {
+          "source": "flow.h",
+          "specifiers": [
+            "flow.h"
+          ]
+        },
+        {
+          "source": "warp.h",
+          "specifiers": [
+            "warp.h"
+          ]
+        },
+        {
+          "source": "blend.h",
+          "specifiers": [
+            "blend.h"
+          ]
+        },
+        {
+          "source": "video_io.h",
+          "specifiers": [
+            "video_io.h"
+          ]
+        },
+        {
+          "source": "cuda_backend.h",
+          "specifiers": [
+            "cuda_backend.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        },
+        {
+          "source": "chrono",
+          "specifiers": [
+            "chrono"
+          ]
+        }
+      ],
+      "exports": [
+        "run"
+      ],
+      "totalLines": 146,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/pipeline.h": {
+      "filePath": "app/src/pipeline.h",
+      "contentHash": "1a761b753f4f56b0bc18393fe6a509568097c32e3c8a41c77fb39ee015d19a78",
+      "functions": [
+        {
+          "name": "lastError",
+          "params": [],
+          "returnType": "std::string",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "PipelineConfig",
+          "methods": [],
+          "properties": [
+            "inputPath",
+            "outputPath",
+            "useCuda"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "PipelineStatus",
+          "methods": [],
+          "properties": [
+            "currentFrame",
+            "totalFrames",
+            "fps",
+            "message"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "Pipeline",
+          "methods": [
+            "run",
+            "lastError"
+          ],
+          "properties": [
+            "lastError_"
+          ],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        },
+        {
+          "source": "atomic",
+          "specifiers": [
+            "atomic"
+          ]
+        },
+        {
+          "source": "functional",
+          "specifiers": [
+            "functional"
+          ]
+        }
+      ],
+      "exports": [
+        "PipelineConfig",
+        "PipelineStatus",
+        "run",
+        "lastError",
+        "Pipeline"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/systray.cpp": {
+      "filePath": "app/src/systray.cpp",
+      "contentHash": "ce0173511c6678ca77f17ce264726fe82a511313ffb32f89862fb281ba3af13c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/systray.h": {
+      "filePath": "app/src/systray.h",
+      "contentHash": "ef5ef5521cf44d2a1e3760b9681ea98f9bbaca810027851beab7d77fdc3f36ff",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/video_io.cpp": {
+      "filePath": "app/src/video_io.cpp",
+      "contentHash": "b42c85f6ad8cda167fcb62b0d453ff382cbd2cc2c01cd057caf4bfb6fde11b0b",
+      "functions": [
+        {
+          "name": "open",
+          "params": [
+            "path"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "readFrame",
+          "params": [
+            "frame"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "release",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "tryOpenWriter",
+          "params": [
+            "writer",
+            "path",
+            "fourcc",
+            "fps",
+            "size"
+          ],
+          "returnType": "bool",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "open",
+          "params": [
+            "path",
+            "fps",
+            "width",
+            "height"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "writeFrame",
+          "params": [
+            "frame"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "release",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "video_io.h",
+          "specifiers": [
+            "video_io.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        }
+      ],
+      "exports": [
+        "open",
+        "readFrame",
+        "release",
+        "open",
+        "writeFrame",
+        "release"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/video_io.h": {
+      "filePath": "app/src/video_io.h",
+      "contentHash": "b6d95e8e7b05cd43c34e6cbf433a0b4a272c64fc482f3f1cb46aa091acbba1b2",
+      "functions": [
+        {
+          "name": "info",
+          "params": [],
+          "returnType": "VideoInfo",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "VideoInfo",
+          "methods": [],
+          "properties": [
+            "width",
+            "height",
+            "fps",
+            "frameCount"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "VideoReader",
+          "methods": [
+            "open",
+            "readFrame",
+            "info",
+            "release"
+          ],
+          "properties": [
+            "cap_",
+            "info_"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "VideoWriter",
+          "methods": [
+            "open",
+            "writeFrame",
+            "release"
+          ],
+          "properties": [
+            "writer_"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "opencv2/core.hpp",
+          "specifiers": [
+            "opencv2/core.hpp"
+          ]
+        },
+        {
+          "source": "opencv2/videoio.hpp",
+          "specifiers": [
+            "opencv2/videoio.hpp"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        }
+      ],
+      "exports": [
+        "VideoInfo",
+        "open",
+        "readFrame",
+        "info",
+        "release",
+        "VideoReader",
+        "open",
+        "writeFrame",
+        "release",
+        "VideoWriter"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/warp.cpp": {
+      "filePath": "app/src/warp.cpp",
+      "contentHash": "a7666a72721c6792ac8a053786b07c84ede87172caf8e6a9ba223a1cf0984680",
+      "functions": [
+        {
+          "name": "warpFrame",
+          "params": [
+            "frame",
+            "flow",
+            "t"
+          ],
+          "returnType": "cv::Mat",
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "warp.h",
+          "specifiers": [
+            "warp.h"
+          ]
+        },
+        {
+          "source": "opencv2/imgproc.hpp",
+          "specifiers": [
+            "opencv2/imgproc.hpp"
+          ]
+        }
+      ],
+      "exports": [
+        "warpFrame"
+      ],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "app/src/warp.h": {
+      "filePath": "app/src/warp.h",
+      "contentHash": "a4f194e755815c1f982570a24240c26f0aa2992d7e0bd6dd972f5a6b8754fd6a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "opencv2/core.hpp",
+          "specifiers": [
+            "opencv2/core.hpp"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "CLAUDE.md": {
+      "filePath": "CLAUDE.md",
+      "contentHash": "2b1a4226b07a2b2800b7e605a82d05502c210329480d2b2f3cccdcd06f5bf75d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "cuda/blend_kernel.cu": {
+      "filePath": "cuda/blend_kernel.cu",
+      "contentHash": "d01f0fcb0ad1d1c7233ad469eb40106cea36aefc35f36e77e69126706ed017fc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": false
+    },
+    "cuda/Makefile": {
+      "filePath": "cuda/Makefile",
+      "contentHash": "be449e88e71e404016323b51fe57f0f078866a774c8d575fcf548a98e86cef1e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "cuda/psnr_kernel.cu": {
+      "filePath": "cuda/psnr_kernel.cu",
+      "contentHash": "7a978877d0df6c6a3b6b0a7668489c6bc8d73a7d093c72f4206c19e8bee12ce8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 97,
+      "hasStructuralAnalysis": false
+    },
+    "cuda/warp_kernel.cu": {
+      "filePath": "cuda/warp_kernel.cu",
+      "contentHash": "6fa5dfe794445c5d797f647e79a6afff62e1bc670fb97785951b3d422282c874",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 70,
+      "hasStructuralAnalysis": false
+    },
+    "main.py": {
+      "filePath": "main.py",
+      "contentHash": "b16bf4235d7bb41ccd14acd60d4eabeba0468156a0f87758e2873faa828e5989",
+      "functions": [
+        {
+          "name": "run_pipeline",
+          "params": [
+            "video_path",
+            "num_triplets"
+          ],
+          "exported": true,
+          "lineCount": 83
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "src.extract",
+          "specifiers": [
+            "extract_frames"
+          ]
+        },
+        {
+          "source": "src.triplets",
+          "specifiers": [
+            "create_triplets"
+          ]
+        },
+        {
+          "source": "src.baseline",
+          "specifiers": [
+            "naive_blend"
+          ]
+        },
+        {
+          "source": "src.flow",
+          "specifiers": [
+            "compute_optical_flow",
+            "visualize_flow"
+          ]
+        },
+        {
+          "source": "src.warp",
+          "specifiers": [
+            "interpolate_with_flow"
+          ]
+        },
+        {
+          "source": "src.interpolate",
+          "specifiers": [
+            "interpolate_with_occlusion"
+          ]
+        },
+        {
+          "source": "src.evaluate",
+          "specifiers": [
+            "evaluate_triplet"
+          ]
+        }
+      ],
+      "exports": [
+        "run_pipeline"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "5b7ed3e28066aab948d14bc43b3c73b4f9c50a55101c20a7dc6e626a9a450686",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 144,
+      "hasStructuralAnalysis": true
+    },
+    "requirements.txt": {
+      "filePath": "requirements.txt",
+      "contentHash": "61a922d11ee28d429b5da3539a7788183dff20df29444b68e6c46a010f01ea3f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "src/__init__.py": {
+      "filePath": "src/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "src/baseline.py": {
+      "filePath": "src/baseline.py",
+      "contentHash": "1e20afbf1bbac242fb97c82354a8cf2f39f8d4f45e66984723e2649c9f03eb11",
+      "functions": [
+        {
+          "name": "naive_blend",
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "weighted_blend",
+          "params": [
+            "frame_a_path",
+            "frame_c_path",
+            "alpha"
+          ],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        }
+      ],
+      "exports": [
+        "naive_blend",
+        "weighted_blend"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "src/evaluate.py": {
+      "filePath": "src/evaluate.py",
+      "contentHash": "f3f457bb9cd86aa9230db71926b0f8695a9a6a361307cc204aca2c7b84640ab7",
+      "functions": [
+        {
+          "name": "compute_psnr",
+          "params": [
+            "predicted",
+            "ground_truth"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "compute_ssim",
+          "params": [
+            "predicted",
+            "ground_truth"
+          ],
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "evaluate_triplet",
+          "params": [
+            "predicted",
+            "ground_truth_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        }
+      ],
+      "exports": [
+        "compute_psnr",
+        "compute_ssim",
+        "evaluate_triplet"
+      ],
+      "totalLines": 125,
+      "hasStructuralAnalysis": true
+    },
+    "src/extract.py": {
+      "filePath": "src/extract.py",
+      "contentHash": "c841d6438f922d618939a67752d1722add19283ece5736a131d010c3d23f89c9",
+      "functions": [
+        {
+          "name": "extract_frames",
+          "params": [
+            "video_path",
+            "output_dir"
+          ],
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        }
+      ],
+      "exports": [
+        "extract_frames"
+      ],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "src/flow.py": {
+      "filePath": "src/flow.py",
+      "contentHash": "4828b255c2c16a2965b16fd86ab174a7529bd1d59f8f0a1b44aa6f09b6456509",
+      "functions": [
+        {
+          "name": "compute_optical_flow",
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ],
+          "exported": true,
+          "lineCount": 40
+        },
+        {
+          "name": "visualize_flow",
+          "params": [
+            "flow",
+            "output_path"
+          ],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        }
+      ],
+      "exports": [
+        "compute_optical_flow",
+        "visualize_flow"
+      ],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "src/interpolate.py": {
+      "filePath": "src/interpolate.py",
+      "contentHash": "1d61c886f866ae88c2e7a53c4e7bd70526f9e826e010a5e766ee998794f0f642",
+      "functions": [
+        {
+          "name": "compute_occlusion_mask",
+          "params": [
+            "flow_forward",
+            "flow_backward",
+            "threshold"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "interpolate_with_occlusion",
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        }
+      ],
+      "exports": [
+        "compute_occlusion_mask",
+        "interpolate_with_occlusion"
+      ],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "src/triplets.py": {
+      "filePath": "src/triplets.py",
+      "contentHash": "257d79e3a9833a6d9b9584a147c2b9ee9a60db9aa9486766b09c2b4d737cf14f",
+      "functions": [
+        {
+          "name": "create_triplets",
+          "params": [
+            "frames_dir",
+            "output_file",
+            "step"
+          ],
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        }
+      ],
+      "exports": [
+        "create_triplets"
+      ],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "src/warp.py": {
+      "filePath": "src/warp.py",
+      "contentHash": "c07f6774bfc0684334c91f48c046a47c8447cb4c8d0a988f560dfe0eb9d05b3c",
+      "functions": [
+        {
+          "name": "warp_frame",
+          "params": [
+            "frame",
+            "flow",
+            "t"
+          ],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "interpolate_with_flow",
+          "params": [
+            "frame_a_path",
+            "frame_c_path",
+            "flow"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "cv2",
+          "specifiers": [
+            "cv2"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        }
+      ],
+      "exports": [
+        "warp_frame",
+        "interpolate_with_flow"
+      ],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

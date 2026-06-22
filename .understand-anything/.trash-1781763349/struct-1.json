@@ -1,0 +1,864 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/src/blend.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "computeOcclusionMask",
+          "startLine": 7,
+          "endLine": 51,
+          "params": [
+            "flowAC",
+            "flowCA",
+            "threshold"
+          ]
+        },
+        {
+          "name": "blendWithMask",
+          "startLine": 53,
+          "endLine": 71,
+          "params": [
+            "warpedA",
+            "warpedC",
+            "mask"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "computeOcclusionMask",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "blendWithMask",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "cv::split",
+          "lineNumber": 14
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "ptr<float>",
+          "lineNumber": 20
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "ptr<float>",
+          "lineNumber": 21
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "static_cast<float>",
+          "lineNumber": 23
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "static_cast<float>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "cv::remap",
+          "lineNumber": 33
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "cv::split",
+          "lineNumber": 40
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "cv::magnitude",
+          "lineNumber": 44
+        },
+        {
+          "caller": "computeOcclusionMask",
+          "callee": "cv::exp",
+          "lineNumber": 48
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "convertTo",
+          "lineNumber": 57
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "convertTo",
+          "lineNumber": 58
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "cv::merge",
+          "lineNumber": 63
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "mul",
+          "lineNumber": 66
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "mul",
+          "lineNumber": 66
+        },
+        {
+          "caller": "blendWithMask",
+          "callee": "convertTo",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/blend.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/flow.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "computeOpticalFlow",
+          "startLine": 7,
+          "endLine": 24,
+          "params": [
+            "frameA",
+            "frameC"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "computeOpticalFlow",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "computeOpticalFlow",
+          "callee": "cv::cvtColor",
+          "lineNumber": 9
+        },
+        {
+          "caller": "computeOpticalFlow",
+          "callee": "cv::cvtColor",
+          "lineNumber": 10
+        },
+        {
+          "caller": "computeOpticalFlow",
+          "callee": "cv::calcOpticalFlowFarneback",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/flow.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 8,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/pipeline.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 145,
+      "nonEmptyLines": 121,
+      "functions": [
+        {
+          "name": "interpolatePair",
+          "startLine": 13,
+          "endLine": 35,
+          "params": [
+            "frameA",
+            "frameC",
+            "cuda"
+          ]
+        },
+        {
+          "name": "run",
+          "startLine": 37,
+          "endLine": 143,
+          "params": [
+            "config",
+            "cancelRequested",
+            "progressCb"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "run",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "interpolatePair",
+          "callee": "computeOpticalFlow",
+          "lineNumber": 16
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "computeOpticalFlow",
+          "lineNumber": 17
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "isAvailable",
+          "lineNumber": 21
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "warpFrame",
+          "lineNumber": 22
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "warpFrame",
+          "lineNumber": 23
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "computeOcclusionMask",
+          "lineNumber": 24
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "blendFrames",
+          "lineNumber": 25
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "warpFrame",
+          "lineNumber": 28
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "warpFrame",
+          "lineNumber": 29
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "computeOcclusionMask",
+          "lineNumber": 30
+        },
+        {
+          "caller": "interpolatePair",
+          "callee": "blendWithMask",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run",
+          "callee": "clear",
+          "lineNumber": 40
+        },
+        {
+          "caller": "run",
+          "callee": "open",
+          "lineNumber": 44
+        },
+        {
+          "caller": "run",
+          "callee": "info",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 52
+        },
+        {
+          "caller": "run",
+          "callee": "open",
+          "lineNumber": 59
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 61
+        },
+        {
+          "caller": "run",
+          "callee": "init",
+          "lineNumber": 69
+        },
+        {
+          "caller": "run",
+          "callee": "isAvailable",
+          "lineNumber": 70
+        },
+        {
+          "caller": "run",
+          "callee": "gpuName",
+          "lineNumber": 72
+        },
+        {
+          "caller": "run",
+          "callee": "readFrame",
+          "lineNumber": 80
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 82
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 83
+        },
+        {
+          "caller": "run",
+          "callee": "writeFrame",
+          "lineNumber": 88
+        },
+        {
+          "caller": "run",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 91
+        },
+        {
+          "caller": "run",
+          "callee": "load",
+          "lineNumber": 95
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 97
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 98
+        },
+        {
+          "caller": "run",
+          "callee": "readFrame",
+          "lineNumber": 103
+        },
+        {
+          "caller": "run",
+          "callee": "interpolatePair",
+          "lineNumber": 109
+        },
+        {
+          "caller": "run",
+          "callee": "writeFrame",
+          "lineNumber": 112
+        },
+        {
+          "caller": "run",
+          "callee": "writeFrame",
+          "lineNumber": 113
+        },
+        {
+          "caller": "run",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 119
+        },
+        {
+          "caller": "run",
+          "callee": "count",
+          "lineNumber": 120
+        },
+        {
+          "caller": "run",
+          "callee": "std::chrono::duration<float>",
+          "lineNumber": 120
+        },
+        {
+          "caller": "run",
+          "callee": "std::to_string",
+          "lineNumber": 127
+        },
+        {
+          "caller": "run",
+          "callee": "std::to_string",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run",
+          "callee": "progressCb",
+          "lineNumber": 129
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run",
+          "callee": "release",
+          "lineNumber": 134
+        },
+        {
+          "caller": "run",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run",
+          "callee": "count",
+          "lineNumber": 137
+        },
+        {
+          "caller": "run",
+          "callee": "std::chrono::duration<float>",
+          "lineNumber": 137
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/video_io.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "open",
+          "startLine": 6,
+          "endLine": 23,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "readFrame",
+          "startLine": 25,
+          "endLine": 27,
+          "params": [
+            "frame"
+          ]
+        },
+        {
+          "name": "release",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "tryOpenWriter",
+          "startLine": 34,
+          "endLine": 38,
+          "params": [
+            "writer",
+            "path",
+            "fourcc",
+            "fps",
+            "size"
+          ]
+        },
+        {
+          "name": "open",
+          "startLine": 40,
+          "endLine": 65,
+          "params": [
+            "path",
+            "fps",
+            "width",
+            "height"
+          ]
+        },
+        {
+          "name": "writeFrame",
+          "startLine": 67,
+          "endLine": 71,
+          "params": [
+            "frame"
+          ]
+        },
+        {
+          "name": "release",
+          "startLine": 73,
+          "endLine": 75,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "open",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "readFrame",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "release",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "open",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "writeFrame",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "release",
+          "line": 73,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "open",
+          "callee": "open",
+          "lineNumber": 7
+        },
+        {
+          "caller": "open",
+          "callee": "static_cast<int>",
+          "lineNumber": 12
+        },
+        {
+          "caller": "open",
+          "callee": "get",
+          "lineNumber": 12
+        },
+        {
+          "caller": "open",
+          "callee": "static_cast<int>",
+          "lineNumber": 13
+        },
+        {
+          "caller": "open",
+          "callee": "get",
+          "lineNumber": 13
+        },
+        {
+          "caller": "open",
+          "callee": "get",
+          "lineNumber": 14
+        },
+        {
+          "caller": "open",
+          "callee": "static_cast<int>",
+          "lineNumber": 15
+        },
+        {
+          "caller": "open",
+          "callee": "get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "readFrame",
+          "callee": "read",
+          "lineNumber": 26
+        },
+        {
+          "caller": "release",
+          "callee": "release",
+          "lineNumber": 30
+        },
+        {
+          "caller": "tryOpenWriter",
+          "callee": "open",
+          "lineNumber": 36
+        },
+        {
+          "caller": "tryOpenWriter",
+          "callee": "isOpened",
+          "lineNumber": 37
+        },
+        {
+          "caller": "open",
+          "callee": "cv::VideoWriter::fourcc",
+          "lineNumber": 50
+        },
+        {
+          "caller": "open",
+          "callee": "cv::VideoWriter::fourcc",
+          "lineNumber": 51
+        },
+        {
+          "caller": "open",
+          "callee": "cv::VideoWriter::fourcc",
+          "lineNumber": 52
+        },
+        {
+          "caller": "open",
+          "callee": "cv::VideoWriter::fourcc",
+          "lineNumber": 53
+        },
+        {
+          "caller": "open",
+          "callee": "tryOpenWriter",
+          "lineNumber": 57
+        },
+        {
+          "caller": "writeFrame",
+          "callee": "isOpened",
+          "lineNumber": 68
+        },
+        {
+          "caller": "writeFrame",
+          "callee": "write",
+          "lineNumber": 69
+        },
+        {
+          "caller": "release",
+          "callee": "release",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/video_io.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "info",
+          "startLine": 20,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "VideoInfo",
+          "startLine": 9,
+          "endLine": 14,
+          "methods": [],
+          "properties": [
+            "width",
+            "height",
+            "fps",
+            "frameCount"
+          ]
+        },
+        {
+          "name": "VideoReader",
+          "startLine": 16,
+          "endLine": 26,
+          "methods": [
+            "open",
+            "readFrame",
+            "info",
+            "release"
+          ],
+          "properties": [
+            "cap_",
+            "info_"
+          ]
+        },
+        {
+          "name": "VideoWriter",
+          "startLine": 28,
+          "endLine": 37,
+          "methods": [
+            "open",
+            "writeFrame",
+            "release"
+          ],
+          "properties": [
+            "writer_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "VideoInfo",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "open",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "readFrame",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "info",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "release",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "VideoReader",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "open",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "writeFrame",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "release",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "VideoWriter",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "app/src/warp.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "warpFrame",
+          "startLine": 6,
+          "endLine": 35,
+          "params": [
+            "frame",
+            "flow",
+            "t"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "warpFrame",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "warpFrame",
+          "callee": "cv::split",
+          "lineNumber": 12
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "ptr<float>",
+          "lineNumber": 18
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "ptr<float>",
+          "lineNumber": 19
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "static_cast<float>",
+          "lineNumber": 21
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "static_cast<float>",
+          "lineNumber": 22
+        },
+        {
+          "caller": "warpFrame",
+          "callee": "cv::remap",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/src/warp.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/__init__.py",
+      "language": "python",
+      "summary": "Empty package marker that makes src/ an importable Python package.",
+      "tags": [
+        "package-init",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/gui.h",
+      "type": "file",
+      "name": "gui.h",
+      "filePath": "app/src/gui.h",
+      "language": "cpp",
+      "summary": "Declares the Dear ImGui Gui class (compiled only when HAS_GUI).",
+      "tags": [
+        "header",
+        "gui",
+        "imgui",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/gui.cpp",
+      "type": "file",
+      "name": "gui.cpp",
+      "filePath": "app/src/gui.cpp",
+      "language": "cpp",
+      "summary": "Dear ImGui front-end: file pickers (tinyfiledialogs), backend/CUDA info, start/cancel controls, and a progress + status panel bound to the App controller.",
+      "tags": [
+        "gui",
+        "imgui",
+        "tinyfiledialogs",
+        "frontend",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/systray.h",
+      "type": "file",
+      "name": "systray.h",
+      "filePath": "app/src/systray.h",
+      "language": "cpp",
+      "summary": "Declares the Windows-only SysTray helper (compiled only on _WIN32).",
+      "tags": [
+        "header",
+        "systray",
+        "windows",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/systray.cpp",
+      "type": "file",
+      "name": "systray.cpp",
+      "filePath": "app/src/systray.cpp",
+      "language": "cpp",
+      "summary": "Windows system-tray integration: notification icon, balloon notifications, and restore-on-double-click handling.",
+      "tags": [
+        "systray",
+        "windows",
+        "shell",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/warp_kernel.cu",
+      "type": "file",
+      "name": "warp_kernel.cu",
+      "filePath": "cuda/warp_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone teaching CUDA warp kernel: each thread inverse-warps one output pixel via bilinear interpolation of the source frame along the flow field.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp",
+        "bilinear",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/blend_kernel.cu",
+      "type": "file",
+      "name": "blend_kernel.cu",
+      "filePath": "cuda/blend_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone CUDA blend kernel: per-pixel occlusion-weighted combination of two warped frames (uses the early mask*0.5*(a+b)+(1-mask)*b formula).",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend",
+        "occlusion",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/psnr_kernel.cu",
+      "type": "file",
+      "name": "psnr_kernel.cu",
+      "filePath": "cuda/psnr_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone CUDA PSNR kernel with shared-memory parallel reduction over squared error, plus a full compute_psnr_cuda host wrapper.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "psnr",
+        "reduction",
+        "gpu"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/cuda/kernels.h",
+      "type": "file",
+      "name": "kernels.h",
+      "filePath": "app/cuda/kernels.h",
+      "language": "cuda",
+      "summary": "extern-C declarations for the GPU host wrappers (warp/blend/occlusion-mask/psnr) called from the C++ CudaBackend.",
+      "tags": [
+        "header",
+        "cuda",
+        "interop",
+        "extern-c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/cuda/warp_host.cu",
+      "type": "file",
+      "name": "warp_host.cu",
+      "filePath": "app/cuda/warp_host.cu",
+      "language": "cuda",
+      "summary": "Host wrapper for the warp kernel: inlines warp_kernel and handles device malloc, H2D/D2H copies, and launch for the C++ app.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "warp",
+        "memory",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/cuda/blend_host.cu",
+      "type": "file",
+      "name": "blend_host.cu",
+      "filePath": "app/cuda/blend_host.cu",
+      "language": "cuda",
+      "summary": "Host wrapper for occlusion blend using the corrected mask*a+(1-mask)*c formula, with device allocation and transfers.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "blend",
+        "occlusion",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/cuda/occlusion_kernel.cu",
+      "type": "file",
+      "name": "occlusion_kernel.cu",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "language": "cuda",
+      "summary": "GPU occlusion-mask kernel: bilinearly samples backward flow, computes forward-backward consistency error, and emits exp(-error/threshold); includes its host wrapper.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "occlusion",
+        "host-wrapper",
+        "gpu"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:cuda/Makefile",
+      "type": "config",
+      "name": "Makefile",
+      "filePath": "cuda/Makefile",
+      "language": "makefile",
+      "summary": "Make build for the standalone CUDA kernels: compiles each .cu into a shared library (.so/.dll) via nvcc with OS detection and a GPU/nvcc check target.",
+      "tags": [
+        "build",
+        "make",
+        "nvcc",
+        "cuda"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:app/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "app/CMakeLists.txt",
+      "language": "cmake",
+      "summary": "CMake build for the native app: finds OpenCV, optionally enables CUDA, fetches GLFW + Dear ImGui, vendors tinyfiledialogs, and assembles the MiniDLSS executable with HAS_CUDA/HAS_GUI defines and CPack packaging.",
+      "tags": [
+        "build",
+        "cmake",
+        "dependencies",
+        "cuda",
+        "gui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/gui.h:Gui",
+      "type": "class",
+      "name": "Gui",
+      "filePath": "app/src/gui.h",
+      "summary": "Dear ImGui front-end bound to the App controller; renders file selection, backend info, controls, progress, and status.",
+      "tags": [
+        "gui",
+        "imgui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/systray.h:SysTray",
+      "type": "class",
+      "name": "SysTray",
+      "filePath": "app/src/systray.h",
+      "summary": "Windows notification-area icon with balloon notifications and restore-on-double-click.",
+      "tags": [
+        "systray",
+        "windows"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "function",
+      "name": "warp_kernel",
+      "filePath": "cuda/warp_kernel.cu",
+      "summary": "Device kernel: one thread per output pixel inverse-warps along the flow with bilinear interpolation and boundary clamping.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/blend_kernel.cu:blend_kernel",
+      "type": "function",
+      "name": "blend_kernel",
+      "filePath": "cuda/blend_kernel.cu",
+      "summary": "Device kernel: per-pixel occlusion blend using mask*0.5*(a+b)+(1-mask)*b.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "function",
+      "name": "psnr_kernel",
+      "filePath": "cuda/psnr_kernel.cu",
+      "summary": "Device kernel: per-element squared error followed by shared-memory parallel reduction to block partial sums.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "reduction"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "type": "function",
+      "name": "compute_psnr_cuda",
+      "filePath": "cuda/psnr_kernel.cu",
+      "summary": "Host wrapper: allocates device memory, launches the PSNR kernel, sums partial sums, and returns PSNR in dB.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "psnr"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "function",
+      "name": "warp_kernel",
+      "filePath": "app/cuda/warp_host.cu",
+      "summary": "Inlined warp device kernel used by the app build (mirrors cuda/warp_kernel.cu).",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "function",
+      "name": "warp_frame_cuda",
+      "filePath": "app/cuda/warp_host.cu",
+      "summary": "extern-C host wrapper: device alloc, H2D/D2H copies, and launch of the warp kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "warp",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "function",
+      "name": "blend_kernel_v2",
+      "filePath": "app/cuda/blend_host.cu",
+      "summary": "Corrected occlusion blend device kernel: mask*a + (1-mask)*c.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "function",
+      "name": "blend_frames_cuda",
+      "filePath": "app/cuda/blend_host.cu",
+      "summary": "extern-C host wrapper for the corrected blend kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "blend",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "function",
+      "name": "occlusion_mask_kernel",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "Device kernel: per-pixel forward-backward consistency error -> exp(-error/threshold) soft mask.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "occlusion"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "function",
+      "name": "bilinearSampleFlow",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "Device helper: bilinearly samples a 2-channel flow field at fractional coordinates.",
+      "tags": [
+        "cuda",
+        "device-fn",
+        "bilinear"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "function",
+      "name": "occlusion_mask_cuda",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "extern-C host wrapper for the occlusion-mask kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "occlusion",
+        "interop"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/src/gui.h",
+      "target": "class:app/src/gui.h:Gui",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/systray.h",
+      "target": "class:app/src/systray.h:SysTray",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cuda/warp_kernel.cu",
+      "target": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cuda/blend_kernel.cu",
+      "target": "function:cuda/blend_kernel.cu:blend_kernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cuda/psnr_kernel.cu",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cuda/psnr_kernel.cu",
+      "target": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/warp_host.cu",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/warp_host.cu",
+      "target": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/blend_host.cu",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/blend_host.cu",
+      "target": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "target": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:cuda/warp_kernel.cu:warp_kernel",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:cuda/blend_kernel.cu:blend_kernel",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/src/main.cpp",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/warp_host.cu",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/blend_host.cu",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/occlusion_kernel.cu",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/warp_kernel.cu",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/blend_kernel.cu",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/psnr_kernel.cu",
+      "type": "configures",
+      "weight": 0.6
+    }
+  ]
+}

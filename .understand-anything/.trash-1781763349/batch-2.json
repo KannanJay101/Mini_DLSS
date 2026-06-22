@@ -1,0 +1,518 @@
+{
+  "nodes": [
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "language": "python",
+      "summary": "Top-level pipeline entry point. Wires together extract -> triplets -> baseline and flow interpolation, evaluates each triplet with PSNR/SSIM, and prints an averaged comparison of naive blend vs occlusion-aware flow interpolation.",
+      "tags": [
+        "entry-point",
+        "orchestration",
+        "pipeline",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/extract.py",
+      "type": "file",
+      "name": "extract.py",
+      "filePath": "src/extract.py",
+      "language": "python",
+      "summary": "Frame extraction stage: decodes an input video with OpenCV VideoCapture and writes every frame as a zero-padded PNG.",
+      "tags": [
+        "video-io",
+        "opencv",
+        "extraction",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/triplets.py",
+      "type": "file",
+      "name": "triplets.py",
+      "filePath": "src/triplets.py",
+      "language": "python",
+      "summary": "Triplet builder: groups sequential frames into (A,B,C) sets where B is the ground-truth midpoint, with a configurable motion step, and persists the index as JSON.",
+      "tags": [
+        "data-prep",
+        "triplets",
+        "json",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/baseline.py",
+      "type": "file",
+      "name": "baseline.py",
+      "filePath": "src/baseline.py",
+      "language": "python",
+      "summary": "Naive baselines: simple and weighted pixel averaging of frames A and C, used as the motion-unaware reference to beat.",
+      "tags": [
+        "baseline",
+        "blend",
+        "opencv",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/flow.py",
+      "type": "file",
+      "name": "flow.py",
+      "filePath": "src/flow.py",
+      "language": "python",
+      "summary": "Optical flow stage: dense Farneback flow A->C plus an HSV visualization helper for inspecting motion fields.",
+      "tags": [
+        "optical-flow",
+        "farneback",
+        "visualization",
+        "opencv",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/warp.py",
+      "type": "file",
+      "name": "warp.py",
+      "filePath": "src/warp.py",
+      "language": "python",
+      "summary": "Flow-based warping: remaps a frame along the flow field by an interpolation factor t and a simple two-frame midpoint interpolation built on it.",
+      "tags": [
+        "warp",
+        "remap",
+        "interpolation",
+        "opencv",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/interpolate.py",
+      "type": "file",
+      "name": "interpolate.py",
+      "filePath": "src/interpolate.py",
+      "language": "python",
+      "summary": "Phase-1 interpolation core: forward-backward occlusion mask plus occlusion-weighted bidirectional warp/blend to predict the middle frame.",
+      "tags": [
+        "interpolation",
+        "occlusion",
+        "optical-flow",
+        "core",
+        "python"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/evaluate.py",
+      "type": "file",
+      "name": "evaluate.py",
+      "filePath": "src/evaluate.py",
+      "language": "python",
+      "summary": "Quality metrics implemented from scratch: PSNR from MSE and a windowed SSIM, plus a per-triplet evaluator returning both scores.",
+      "tags": [
+        "metrics",
+        "psnr",
+        "ssim",
+        "evaluation",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:main.py:run_pipeline",
+      "type": "function",
+      "name": "run_pipeline",
+      "filePath": "main.py",
+      "summary": "Orchestrates the full mini-DLSS run: extract frames, build triplets, then per-triplet compute naive baseline and occlusion-aware flow interpolation, accumulate PSNR/SSIM, save samples, and print an averaged report.",
+      "tags": [
+        "orchestration",
+        "pipeline"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/extract.py:extract_frames",
+      "type": "function",
+      "name": "extract_frames",
+      "filePath": "src/extract.py",
+      "summary": "Decodes a video with cv2.VideoCapture and writes each frame as frame_NNNNN.png; returns the number of frames written.",
+      "tags": [
+        "video-io",
+        "opencv"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/triplets.py:create_triplets",
+      "type": "function",
+      "name": "create_triplets",
+      "filePath": "src/triplets.py",
+      "summary": "Builds (A,B,C) triplets from sorted PNG frames with a configurable step and writes the triplet index to JSON.",
+      "tags": [
+        "data-prep",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/baseline.py:naive_blend",
+      "type": "function",
+      "name": "naive_blend",
+      "filePath": "src/baseline.py",
+      "summary": "Averages frames A and C 50/50 — the motion-unaware baseline.",
+      "tags": [
+        "baseline",
+        "blend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/baseline.py:weighted_blend",
+      "type": "function",
+      "name": "weighted_blend",
+      "filePath": "src/baseline.py",
+      "summary": "Blends A and C with an adjustable alpha weight.",
+      "tags": [
+        "baseline",
+        "blend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/flow.py:compute_optical_flow",
+      "type": "function",
+      "name": "compute_optical_flow",
+      "filePath": "src/flow.py",
+      "summary": "Computes dense Farneback optical flow A->C and returns an (H,W,2) float32 dx/dy field.",
+      "tags": [
+        "optical-flow",
+        "farneback"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/flow.py:visualize_flow",
+      "type": "function",
+      "name": "visualize_flow",
+      "filePath": "src/flow.py",
+      "summary": "Encodes a flow field as an HSV image (hue=direction, value=magnitude) and saves it.",
+      "tags": [
+        "visualization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/warp.py:warp_frame",
+      "type": "function",
+      "name": "warp_frame",
+      "filePath": "src/warp.py",
+      "summary": "Inverse-warps a frame along the flow field by factor t using cv2.remap with bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/warp.py:interpolate_with_flow",
+      "type": "function",
+      "name": "interpolate_with_flow",
+      "filePath": "src/warp.py",
+      "summary": "Warps A forward and C backward to the midpoint and averages them (flow interpolation without occlusion handling).",
+      "tags": [
+        "interpolation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "function",
+      "name": "compute_occlusion_mask",
+      "filePath": "src/interpolate.py",
+      "summary": "Forward-backward flow consistency check: warps backward flow by forward flow, measures residual magnitude, and maps it to a soft [0,1] mask via exp(-error/threshold).",
+      "tags": [
+        "occlusion",
+        "optical-flow"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "function",
+      "name": "interpolate_with_occlusion",
+      "filePath": "src/interpolate.py",
+      "summary": "Full Phase-1 prediction: bidirectional Farneback flow, occlusion mask, warp A & C to midpoint, and occlusion-weighted blend.",
+      "tags": [
+        "interpolation",
+        "occlusion",
+        "core"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/evaluate.py:compute_psnr",
+      "type": "function",
+      "name": "compute_psnr",
+      "filePath": "src/evaluate.py",
+      "summary": "Computes PSNR from mean squared error using NumPy (returns inf when identical).",
+      "tags": [
+        "metrics",
+        "psnr"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/evaluate.py:compute_ssim",
+      "type": "function",
+      "name": "compute_ssim",
+      "filePath": "src/evaluate.py",
+      "summary": "From-scratch SSIM using Gaussian-windowed luminance, contrast, and structure terms.",
+      "tags": [
+        "metrics",
+        "ssim"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/evaluate.py:evaluate_triplet",
+      "type": "function",
+      "name": "evaluate_triplet",
+      "filePath": "src/evaluate.py",
+      "summary": "Loads the ground-truth frame and returns {psnr, ssim} for a predicted frame.",
+      "tags": [
+        "evaluation"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:main.py",
+      "target": "function:main.py:run_pipeline",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/extract.py",
+      "target": "function:src/extract.py:extract_frames",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/triplets.py",
+      "target": "function:src/triplets.py:create_triplets",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/baseline.py",
+      "target": "function:src/baseline.py:naive_blend",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/baseline.py",
+      "target": "function:src/baseline.py:weighted_blend",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/flow.py",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/flow.py",
+      "target": "function:src/flow.py:visualize_flow",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/warp.py",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/warp.py",
+      "target": "function:src/warp.py:interpolate_with_flow",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/interpolate.py",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/interpolate.py",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:compute_psnr",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:compute_ssim",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:evaluate_triplet",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/baseline.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/evaluate.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/extract.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/flow.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/interpolate.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/triplets.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/warp.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/extract.py:extract_frames",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/triplets.py:create_triplets",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/baseline.py:naive_blend",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/evaluate.py:evaluate_triplet",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/flow.py:visualize_flow",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/warp.py:interpolate_with_flow",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/evaluate.py:evaluate_triplet",
+      "target": "function:src/evaluate.py:compute_psnr",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/evaluate.py:evaluate_triplet",
+      "target": "function:src/evaluate.py:compute_ssim",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/warp.py:warp_frame",
+      "target": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:src/interpolate.py:compute_occlusion_mask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    },
+    {
+      "source": "function:src/evaluate.py:compute_psnr",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "similar_to",
+      "weight": 0.5
+    }
+  ]
+}

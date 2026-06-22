@@ -1,0 +1,491 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/src/pipeline.h",
+      "type": "file",
+      "name": "pipeline.h",
+      "filePath": "app/src/pipeline.h",
+      "language": "cpp",
+      "summary": "Declares the Pipeline class plus PipelineConfig/PipelineStatus and the progress-callback type.",
+      "tags": [
+        "header",
+        "pipeline",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/cuda_backend.h",
+      "type": "file",
+      "name": "cuda_backend.h",
+      "filePath": "app/src/cuda_backend.h",
+      "language": "cpp",
+      "summary": "Declares the CudaBackend class exposing GPU warp/blend/occlusion operations and device info.",
+      "tags": [
+        "header",
+        "cuda",
+        "gpu",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/cuda_backend.cpp",
+      "type": "file",
+      "name": "cuda_backend.cpp",
+      "filePath": "app/src/cuda_backend.cpp",
+      "language": "cpp",
+      "summary": "Optional GPU backend: detects a CUDA device and marshals cv::Mat data into the extern-C kernel host wrappers; compiles to no-ops when HAS_CUDA is off.",
+      "tags": [
+        "cuda",
+        "gpu",
+        "backend",
+        "interop",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/app.h",
+      "type": "file",
+      "name": "app.h",
+      "filePath": "app/src/app.h",
+      "language": "cpp",
+      "summary": "Declares the App controller and AppState enum: owns the CUDA backend, file paths, and worker-thread state.",
+      "tags": [
+        "header",
+        "app",
+        "threading",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/app.cpp",
+      "type": "file",
+      "name": "app.cpp",
+      "filePath": "app/src/app.cpp",
+      "language": "cpp",
+      "summary": "Application controller: launches the pipeline on a background std::thread, relays progress via a mutex-protected status, and supports cancellation.",
+      "tags": [
+        "app",
+        "threading",
+        "controller",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/main.cpp",
+      "type": "file",
+      "name": "main.cpp",
+      "filePath": "app/src/main.cpp",
+      "language": "cpp",
+      "summary": "Native executable entry point: parses args to run either a headless CLI conversion or the ImGui/GLFW desktop GUI (with a Windows WinMain variant).",
+      "tags": [
+        "entry-point",
+        "cli",
+        "gui",
+        "glfw",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/app.h:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "app/src/app.h",
+      "summary": "GUI/CLI application controller: owns the CudaBackend, runs the pipeline on a worker thread, and exposes thread-safe state, status, and file-path setters.",
+      "tags": [
+        "app",
+        "controller",
+        "threading"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/pipeline.h:Pipeline",
+      "type": "class",
+      "name": "Pipeline",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Runs the full video-to-video 2x interpolation; blocks until complete or cancelled and reports progress via callback.",
+      "tags": [
+        "pipeline"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/src/pipeline.h:PipelineConfig",
+      "type": "class",
+      "name": "PipelineConfig",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Config struct: input/output paths and the useCuda flag.",
+      "tags": [
+        "config",
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/pipeline.h:PipelineStatus",
+      "type": "class",
+      "name": "PipelineStatus",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Progress struct: current/total frames, fps, and a status message.",
+      "tags": [
+        "status",
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "class",
+      "name": "CudaBackend",
+      "filePath": "app/src/cuda_backend.h",
+      "summary": "Optional GPU backend: detects a CUDA device and dispatches warp/blend/occlusion-mask kernels; degrades to no-ops without CUDA.",
+      "tags": [
+        "cuda",
+        "gpu",
+        "backend"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::startProcessing",
+      "type": "function",
+      "name": "App::startProcessing",
+      "filePath": "app/src/app.cpp",
+      "summary": "Transitions to Processing state and spawns the worker thread.",
+      "tags": [
+        "threading",
+        "controller"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::workerThread",
+      "type": "function",
+      "name": "App::workerThread",
+      "filePath": "app/src/app.cpp",
+      "summary": "Worker body: configures and runs the Pipeline, relaying progress and errors through the mutex-protected status.",
+      "tags": [
+        "threading",
+        "pipeline"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::init",
+      "type": "function",
+      "name": "App::init",
+      "filePath": "app/src/app.cpp",
+      "summary": "Initializes the CUDA backend and enables CUDA when a device is present.",
+      "tags": [
+        "init",
+        "cuda"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/main.cpp:runCli",
+      "type": "function",
+      "name": "runCli",
+      "filePath": "app/src/main.cpp",
+      "summary": "Headless conversion path: builds a PipelineConfig and runs the Pipeline with console progress.",
+      "tags": [
+        "cli"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/main.cpp:runGui",
+      "type": "function",
+      "name": "runGui",
+      "filePath": "app/src/main.cpp",
+      "summary": "Boots GLFW + OpenGL3 + Dear ImGui, creates the App and Gui, and runs the render loop.",
+      "tags": [
+        "gui",
+        "glfw",
+        "imgui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "function",
+      "name": "CudaBackend::warpFrame",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Copies frame+flow into the warp host wrapper, producing a GPU-warped frame (no-op without CUDA).",
+      "tags": [
+        "cuda",
+        "warp",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "function",
+      "name": "CudaBackend::blendFrames",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Dispatches the GPU blend host wrapper over two warped frames and a mask.",
+      "tags": [
+        "cuda",
+        "blend",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "function",
+      "name": "CudaBackend::computeOcclusionMask",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Dispatches the GPU occlusion-mask host wrapper over forward/backward flow.",
+      "tags": [
+        "cuda",
+        "occlusion",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "function",
+      "name": "CudaBackend::init",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Queries the CUDA device count/properties and records GPU name and VRAM.",
+      "tags": [
+        "cuda",
+        "init"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/src/app.h",
+      "target": "class:app/src/app.h:App",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:Pipeline",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:PipelineConfig",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:PipelineStatus",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/cuda_backend.h",
+      "target": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::startProcessing",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "function:app/src/main.cpp:runCli",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "function:app/src/main.cpp:runGui",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "file:app/src/app.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/app.h",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/app.h",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "file:app/src/app.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "function:app/src/app.cpp:App::workerThread",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/app.cpp:App::startProcessing",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/main.cpp:runCli",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/main.cpp:runGui",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "target": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "target": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app/src/pipeline.h:Pipeline",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::startProcessing",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "depends_on",
+      "weight": 0.6
+    },
+    {
+      "source": "function:app/src/app.cpp:App::workerThread",
+      "target": "class:app/src/pipeline.h:Pipeline",
+      "type": "depends_on",
+      "weight": 0.6
+    }
+  ]
+}

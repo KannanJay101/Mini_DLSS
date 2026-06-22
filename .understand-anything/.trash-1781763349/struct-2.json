@@ -1,0 +1,1090 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "main.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "run_pipeline",
+          "startLine": 14,
+          "endLine": 96,
+          "params": [
+            "video_path",
+            "num_triplets"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_pipeline",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 22
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "extract_frames",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "create_triplets",
+          "lineNumber": 36
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 39
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "os.makedirs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "min",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "len",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "range",
+          "lineNumber": 52
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 54
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "naive_blend",
+          "lineNumber": 57
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "evaluate_triplet",
+          "lineNumber": 58
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "interpolate_with_occlusion",
+          "lineNumber": 61
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "evaluate_triplet",
+          "lineNumber": 62
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 70
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 71
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "cv2.imwrite",
+          "lineNumber": 75
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "cv2.imwrite",
+          "lineNumber": 76
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "cv2.imread",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "cv2.imwrite",
+          "lineNumber": 78
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "compute_optical_flow",
+          "lineNumber": 83
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "visualize_flow",
+          "lineNumber": 84
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 87
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 88
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 89
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 90
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 92
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 94
+        },
+        {
+          "caller": "run_pipeline",
+          "callee": "print",
+          "lineNumber": 96
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/baseline.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "naive_blend",
+          "startLine": 5,
+          "endLine": 31,
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ]
+        },
+        {
+          "name": "weighted_blend",
+          "startLine": 34,
+          "endLine": 53,
+          "params": [
+            "frame_a_path",
+            "frame_c_path",
+            "alpha"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "naive_blend",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "weighted_blend",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "naive_blend",
+          "callee": "cv2.imread",
+          "lineNumber": 19
+        },
+        {
+          "caller": "naive_blend",
+          "callee": "cv2.imread",
+          "lineNumber": 20
+        },
+        {
+          "caller": "naive_blend",
+          "callee": "frame_a.astype",
+          "lineNumber": 25
+        },
+        {
+          "caller": "naive_blend",
+          "callee": "frame_c.astype",
+          "lineNumber": 26
+        },
+        {
+          "caller": "naive_blend",
+          "callee": "np.clip(predicted, 0, 255).astype",
+          "lineNumber": 29
+        },
+        {
+          "caller": "naive_blend",
+          "callee": "np.clip",
+          "lineNumber": 29
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "cv2.imread",
+          "lineNumber": 41
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "cv2.imread",
+          "lineNumber": 42
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "frame_a.astype",
+          "lineNumber": 47
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "frame_c.astype",
+          "lineNumber": 48
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "np.clip(predicted, 0, 255).astype",
+          "lineNumber": 51
+        },
+        {
+          "caller": "weighted_blend",
+          "callee": "np.clip",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/evaluate.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "compute_psnr",
+          "startLine": 5,
+          "endLine": 37,
+          "params": [
+            "predicted",
+            "ground_truth"
+          ]
+        },
+        {
+          "name": "compute_ssim",
+          "startLine": 40,
+          "endLine": 80,
+          "params": [
+            "predicted",
+            "ground_truth"
+          ]
+        },
+        {
+          "name": "evaluate_triplet",
+          "startLine": 83,
+          "endLine": 93,
+          "params": [
+            "predicted",
+            "ground_truth_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compute_psnr",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "compute_ssim",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "evaluate_triplet",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "compute_psnr",
+          "callee": "predicted.astype",
+          "lineNumber": 26
+        },
+        {
+          "caller": "compute_psnr",
+          "callee": "ground_truth.astype",
+          "lineNumber": 27
+        },
+        {
+          "caller": "compute_psnr",
+          "callee": "np.mean",
+          "lineNumber": 29
+        },
+        {
+          "caller": "compute_psnr",
+          "callee": "float",
+          "lineNumber": 32
+        },
+        {
+          "caller": "compute_psnr",
+          "callee": "np.log10",
+          "lineNumber": 35
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.cvtColor(predicted, cv2.COLOR_BGR2GRAY).astype",
+          "lineNumber": 57
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.cvtColor",
+          "lineNumber": 57
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.cvtColor(ground_truth, cv2.COLOR_BGR2GRAY).astype",
+          "lineNumber": 58
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.cvtColor",
+          "lineNumber": 58
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.GaussianBlur",
+          "lineNumber": 64
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.GaussianBlur",
+          "lineNumber": 65
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.GaussianBlur",
+          "lineNumber": 71
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.GaussianBlur",
+          "lineNumber": 72
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "cv2.GaussianBlur",
+          "lineNumber": 73
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "float",
+          "lineNumber": 80
+        },
+        {
+          "caller": "compute_ssim",
+          "callee": "np.mean",
+          "lineNumber": 80
+        },
+        {
+          "caller": "evaluate_triplet",
+          "callee": "cv2.imread",
+          "lineNumber": 87
+        },
+        {
+          "caller": "evaluate_triplet",
+          "callee": "compute_psnr",
+          "lineNumber": 90
+        },
+        {
+          "caller": "evaluate_triplet",
+          "callee": "compute_ssim",
+          "lineNumber": 91
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/extract.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "extract_frames",
+          "startLine": 5,
+          "endLine": 41,
+          "params": [
+            "video_path",
+            "output_dir"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "extract_frames",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "extract_frames",
+          "callee": "os.makedirs",
+          "lineNumber": 13
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cv2.VideoCapture",
+          "lineNumber": 15
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.isOpened",
+          "lineNumber": 17
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "print",
+          "lineNumber": 18
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "int",
+          "lineNumber": 22
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.get",
+          "lineNumber": 22
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "int",
+          "lineNumber": 23
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "int",
+          "lineNumber": 24
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.read",
+          "lineNumber": 31
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "os.path.join",
+          "lineNumber": 35
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cv2.imwrite",
+          "lineNumber": 36
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "cap.release",
+          "lineNumber": 39
+        },
+        {
+          "caller": "extract_frames",
+          "callee": "print",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/flow.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "compute_optical_flow",
+          "startLine": 5,
+          "endLine": 44,
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ]
+        },
+        {
+          "name": "visualize_flow",
+          "startLine": 47,
+          "endLine": 63,
+          "params": [
+            "flow",
+            "output_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compute_optical_flow",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "visualize_flow",
+          "line": 47,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "compute_optical_flow",
+          "callee": "cv2.imread",
+          "lineNumber": 19
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "cv2.imread",
+          "lineNumber": 20
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "cv2.cvtColor",
+          "lineNumber": 25
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "cv2.cvtColor",
+          "lineNumber": 26
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "cv2.calcOpticalFlowFarneback",
+          "lineNumber": 28
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "print",
+          "lineNumber": 41
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "print",
+          "lineNumber": 42
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "flow[:,:,0].max",
+          "lineNumber": 42
+        },
+        {
+          "caller": "compute_optical_flow",
+          "callee": "flow[:,:,1].max",
+          "lineNumber": 42
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "cv2.cartToPolar",
+          "lineNumber": 52
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "np.zeros",
+          "lineNumber": 55
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "cv2.normalize",
+          "lineNumber": 58
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "cv2.cvtColor",
+          "lineNumber": 60
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "cv2.imwrite",
+          "lineNumber": 61
+        },
+        {
+          "caller": "visualize_flow",
+          "callee": "print",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/interpolate.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "compute_occlusion_mask",
+          "startLine": 5,
+          "endLine": 37,
+          "params": [
+            "flow_forward",
+            "flow_backward",
+            "threshold"
+          ]
+        },
+        {
+          "name": "interpolate_with_occlusion",
+          "startLine": 40,
+          "endLine": 67,
+          "params": [
+            "frame_a_path",
+            "frame_c_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compute_occlusion_mask",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "interpolate_with_occlusion",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "np.meshgrid",
+          "lineNumber": 24
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "np.arange",
+          "lineNumber": 24
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "np.arange",
+          "lineNumber": 24
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "(x_coords + flow_forward[:,:,0]).astype",
+          "lineNumber": 25
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "(y_coords + flow_forward[:,:,1]).astype",
+          "lineNumber": 26
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "cv2.remap",
+          "lineNumber": 28
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "np.sqrt",
+          "lineNumber": 33
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "np.exp",
+          "lineNumber": 35
+        },
+        {
+          "caller": "compute_occlusion_mask",
+          "callee": "mask.astype",
+          "lineNumber": 37
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "cv2.imread",
+          "lineNumber": 47
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "cv2.imread",
+          "lineNumber": 48
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "compute_optical_flow",
+          "lineNumber": 53
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "compute_optical_flow",
+          "lineNumber": 54
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "compute_occlusion_mask",
+          "lineNumber": 56
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "warp_frame",
+          "lineNumber": 58
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "warp_frame",
+          "lineNumber": 59
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "np.stack",
+          "lineNumber": 61
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "warped_a.astype",
+          "lineNumber": 63
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "warped_c.astype",
+          "lineNumber": 64
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "np.clip(predicted, 0, 255).astype",
+          "lineNumber": 65
+        },
+        {
+          "caller": "interpolate_with_occlusion",
+          "callee": "np.clip",
+          "lineNumber": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/triplets.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "create_triplets",
+          "startLine": 5,
+          "endLine": 46,
+          "params": [
+            "frames_dir",
+            "output_file",
+            "step"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_triplets",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_triplets",
+          "callee": "sorted",
+          "lineNumber": 18
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.listdir",
+          "lineNumber": 19
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "f.endswith",
+          "lineNumber": 19
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "print",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "len",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "range",
+          "lineNumber": 26
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "len",
+          "lineNumber": 26
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.path.join",
+          "lineNumber": 27
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.path.join",
+          "lineNumber": 28
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.path.join",
+          "lineNumber": 29
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "triplets.append",
+          "lineNumber": 31
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.makedirs",
+          "lineNumber": 37
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "os.path.dirname",
+          "lineNumber": 37
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "open",
+          "lineNumber": 39
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "json.dump",
+          "lineNumber": 40
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "print",
+          "lineNumber": 42
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "len",
+          "lineNumber": 42
+        },
+        {
+          "caller": "create_triplets",
+          "callee": "print",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/warp.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "warp_frame",
+          "startLine": 5,
+          "endLine": 38,
+          "params": [
+            "frame",
+            "flow",
+            "t"
+          ]
+        },
+        {
+          "name": "interpolate_with_flow",
+          "startLine": 41,
+          "endLine": 69,
+          "params": [
+            "frame_a_path",
+            "frame_c_path",
+            "flow"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "warp_frame",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "interpolate_with_flow",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "warp_frame",
+          "callee": "np.meshgrid",
+          "lineNumber": 25
+        },
+        {
+          "caller": "warp_frame",
+          "callee": "np.arange",
+          "lineNumber": 25
+        },
+        {
+          "caller": "warp_frame",
+          "callee": "np.arange",
+          "lineNumber": 25
+        },
+        {
+          "caller": "warp_frame",
+          "callee": "(x_coords - t * flow[:,:,0]).astype",
+          "lineNumber": 27
+        },
+        {
+          "caller": "warp_frame",
+          "callee": "(y_coords - t * flow[:,:,1]).astype",
+          "lineNumber": 28
+        },
+        {
+          "caller": "warp_frame",
+          "callee": "cv2.remap",
+          "lineNumber": 30
+        },
+        {
+          "caller": "interpolate_with_flow",
+          "callee": "cv2.imread",
+          "lineNumber": 58
+        },
+        {
+          "caller": "interpolate_with_flow",
+          "callee": "cv2.imread",
+          "lineNumber": 59
+        },
+        {
+          "caller": "interpolate_with_flow",
+          "callee": "warp_frame",
+          "lineNumber": 64
+        },
+        {
+          "caller": "interpolate_with_flow",
+          "callee": "warp_frame",
+          "lineNumber": 65
+        },
+        {
+          "caller": "interpolate_with_flow",
+          "callee": "cv2.addWeighted",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,2517 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Mini-DLSS",
+    "languages": [
+      "Python",
+      "C++",
+      "CUDA",
+      "C",
+      "Markdown",
+      "Makefile"
+    ],
+    "frameworks": [
+      "OpenCV",
+      "NumPy",
+      "scikit-image",
+      "PyCUDA",
+      "CUDA Toolkit",
+      "Dear ImGui",
+      "GLFW"
+    ],
+    "description": "A from-scratch video frame interpolation pipeline inspired by NVIDIA DLSS Frame Generation. Predicts the missing middle frame from two frames using Farneback optical flow and occlusion-aware bidirectional warping, evaluated with PSNR/SSIM. Phase 1 is a pure Python/OpenCV pipeline; Phase 2 adds CUDA kernels and a C++ desktop GUI application.",
+    "analyzedAt": "2026-06-18T06:12:57.091Z",
+    "gitCommitHash": "0ddc7a304e295378fbad9947879d86fa93918329"
+  },
+  "nodes": [
+    {
+      "id": "file:app/src/flow.h",
+      "type": "file",
+      "name": "flow.h",
+      "filePath": "app/src/flow.h",
+      "language": "cpp",
+      "summary": "Declares the C++ Farneback optical-flow function for the native pipeline.",
+      "tags": [
+        "header",
+        "optical-flow",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/flow.cpp",
+      "type": "file",
+      "name": "flow.cpp",
+      "filePath": "app/src/flow.cpp",
+      "language": "cpp",
+      "summary": "C++ port of optical flow: dense Farneback A->C returning a CV_32FC2 dx/dy field.",
+      "tags": [
+        "optical-flow",
+        "farneback",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/warp.h",
+      "type": "file",
+      "name": "warp.h",
+      "filePath": "app/src/warp.h",
+      "language": "cpp",
+      "summary": "Declares the C++ flow-based frame warp function.",
+      "tags": [
+        "header",
+        "warp",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/warp.cpp",
+      "type": "file",
+      "name": "warp.cpp",
+      "filePath": "app/src/warp.cpp",
+      "language": "cpp",
+      "summary": "C++ port of frame warping: builds coordinate grids and inverse-warps with cv::remap bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/src/blend.h",
+      "type": "file",
+      "name": "blend.h",
+      "filePath": "app/src/blend.h",
+      "language": "cpp",
+      "summary": "Declares the occlusion mask and occlusion-aware blend functions for the C++ pipeline.",
+      "tags": [
+        "header",
+        "occlusion",
+        "blend",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/blend.cpp",
+      "type": "file",
+      "name": "blend.cpp",
+      "filePath": "app/src/blend.cpp",
+      "language": "cpp",
+      "summary": "C++ port of occlusion handling: forward-backward consistency mask and mask-weighted blend of two warped frames.",
+      "tags": [
+        "occlusion",
+        "blend",
+        "opencv",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/video_io.h",
+      "type": "file",
+      "name": "video_io.h",
+      "filePath": "app/src/video_io.h",
+      "language": "cpp",
+      "summary": "Declares VideoReader/VideoWriter wrappers and the VideoInfo struct over OpenCV videoio.",
+      "tags": [
+        "header",
+        "video-io",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/video_io.cpp",
+      "type": "file",
+      "name": "video_io.cpp",
+      "filePath": "app/src/video_io.cpp",
+      "language": "cpp",
+      "summary": "OpenCV video I/O: reader that probes resolution/fps/frame-count and a writer with H.264->mp4v->XVID->MJPG codec fallback.",
+      "tags": [
+        "video-io",
+        "opencv",
+        "codec",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/src/pipeline.cpp",
+      "type": "file",
+      "name": "pipeline.cpp",
+      "filePath": "app/src/pipeline.cpp",
+      "language": "cpp",
+      "summary": "Native video-to-video pipeline: reads frames, interpolates each consecutive pair (CUDA or CPU path), and writes interpolated+real frames at 2x FPS with progress reporting and cancellation.",
+      "tags": [
+        "pipeline",
+        "orchestration",
+        "interpolation",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoReader",
+      "type": "class",
+      "name": "VideoReader",
+      "filePath": "app/src/video_io.h",
+      "summary": "OpenCV-backed reader that probes video metadata and yields frames.",
+      "tags": [
+        "video-io"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoWriter",
+      "type": "class",
+      "name": "VideoWriter",
+      "filePath": "app/src/video_io.h",
+      "summary": "OpenCV-backed writer with multi-codec fallback.",
+      "tags": [
+        "video-io",
+        "codec"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/src/video_io.h:VideoInfo",
+      "type": "class",
+      "name": "VideoInfo",
+      "filePath": "app/src/video_io.h",
+      "summary": "Struct holding width, height, fps, and frame count.",
+      "tags": [
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "function",
+      "name": "computeOpticalFlow",
+      "filePath": "app/src/flow.cpp",
+      "summary": "C++ dense Farneback optical flow A->C returning a CV_32FC2 field.",
+      "tags": [
+        "optical-flow",
+        "farneback"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/warp.cpp:warpFrame",
+      "type": "function",
+      "name": "warpFrame",
+      "filePath": "app/src/warp.cpp",
+      "summary": "C++ inverse warp: builds coordinate grids and remaps the frame by t*flow with bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "function",
+      "name": "computeOcclusionMask",
+      "filePath": "app/src/blend.cpp",
+      "summary": "C++ forward-backward consistency mask via cv::remap and exp(-error/threshold).",
+      "tags": [
+        "occlusion"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/blend.cpp:blendWithMask",
+      "type": "function",
+      "name": "blendWithMask",
+      "filePath": "app/src/blend.cpp",
+      "summary": "C++ occlusion-weighted blend: mask*warpedA + (1-mask)*warpedC.",
+      "tags": [
+        "blend",
+        "occlusion"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "function",
+      "name": "Pipeline::run",
+      "filePath": "app/src/pipeline.cpp",
+      "summary": "Opens input/output video, optionally inits CUDA, then interpolates every consecutive pair, writing interpolated+real frames at 2x FPS with progress and cancellation.",
+      "tags": [
+        "pipeline",
+        "orchestration"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "function",
+      "name": "interpolatePair",
+      "filePath": "app/src/pipeline.cpp",
+      "summary": "Interpolates one frame pair: bidirectional flow then occlusion-aware warp/blend, choosing the CUDA or CPU path.",
+      "tags": [
+        "interpolation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "function",
+      "name": "VideoReader::open",
+      "filePath": "app/src/video_io.cpp",
+      "summary": "Opens a video and reads its resolution, fps, and frame count.",
+      "tags": [
+        "video-io"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "function",
+      "name": "VideoWriter::open",
+      "filePath": "app/src/video_io.cpp",
+      "summary": "Opens an output video, trying codecs in preference order until one succeeds.",
+      "tags": [
+        "video-io",
+        "codec"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "language": "python",
+      "summary": "Top-level pipeline entry point. Wires together extract -> triplets -> baseline and flow interpolation, evaluates each triplet with PSNR/SSIM, and prints an averaged comparison of naive blend vs occlusion-aware flow interpolation.",
+      "tags": [
+        "entry-point",
+        "orchestration",
+        "pipeline",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/extract.py",
+      "type": "file",
+      "name": "extract.py",
+      "filePath": "src/extract.py",
+      "language": "python",
+      "summary": "Frame extraction stage: decodes an input video with OpenCV VideoCapture and writes every frame as a zero-padded PNG.",
+      "tags": [
+        "video-io",
+        "opencv",
+        "extraction",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/triplets.py",
+      "type": "file",
+      "name": "triplets.py",
+      "filePath": "src/triplets.py",
+      "language": "python",
+      "summary": "Triplet builder: groups sequential frames into (A,B,C) sets where B is the ground-truth midpoint, with a configurable motion step, and persists the index as JSON.",
+      "tags": [
+        "data-prep",
+        "triplets",
+        "json",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/baseline.py",
+      "type": "file",
+      "name": "baseline.py",
+      "filePath": "src/baseline.py",
+      "language": "python",
+      "summary": "Naive baselines: simple and weighted pixel averaging of frames A and C, used as the motion-unaware reference to beat.",
+      "tags": [
+        "baseline",
+        "blend",
+        "opencv",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/flow.py",
+      "type": "file",
+      "name": "flow.py",
+      "filePath": "src/flow.py",
+      "language": "python",
+      "summary": "Optical flow stage: dense Farneback flow A->C plus an HSV visualization helper for inspecting motion fields.",
+      "tags": [
+        "optical-flow",
+        "farneback",
+        "visualization",
+        "opencv",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/warp.py",
+      "type": "file",
+      "name": "warp.py",
+      "filePath": "src/warp.py",
+      "language": "python",
+      "summary": "Flow-based warping: remaps a frame along the flow field by an interpolation factor t and a simple two-frame midpoint interpolation built on it.",
+      "tags": [
+        "warp",
+        "remap",
+        "interpolation",
+        "opencv",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/interpolate.py",
+      "type": "file",
+      "name": "interpolate.py",
+      "filePath": "src/interpolate.py",
+      "language": "python",
+      "summary": "Phase-1 interpolation core: forward-backward occlusion mask plus occlusion-weighted bidirectional warp/blend to predict the middle frame.",
+      "tags": [
+        "interpolation",
+        "occlusion",
+        "optical-flow",
+        "core",
+        "python"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/evaluate.py",
+      "type": "file",
+      "name": "evaluate.py",
+      "filePath": "src/evaluate.py",
+      "language": "python",
+      "summary": "Quality metrics implemented from scratch: PSNR from MSE and a windowed SSIM, plus a per-triplet evaluator returning both scores.",
+      "tags": [
+        "metrics",
+        "psnr",
+        "ssim",
+        "evaluation",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:main.py:run_pipeline",
+      "type": "function",
+      "name": "run_pipeline",
+      "filePath": "main.py",
+      "summary": "Orchestrates the full mini-DLSS run: extract frames, build triplets, then per-triplet compute naive baseline and occlusion-aware flow interpolation, accumulate PSNR/SSIM, save samples, and print an averaged report.",
+      "tags": [
+        "orchestration",
+        "pipeline"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/extract.py:extract_frames",
+      "type": "function",
+      "name": "extract_frames",
+      "filePath": "src/extract.py",
+      "summary": "Decodes a video with cv2.VideoCapture and writes each frame as frame_NNNNN.png; returns the number of frames written.",
+      "tags": [
+        "video-io",
+        "opencv"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/triplets.py:create_triplets",
+      "type": "function",
+      "name": "create_triplets",
+      "filePath": "src/triplets.py",
+      "summary": "Builds (A,B,C) triplets from sorted PNG frames with a configurable step and writes the triplet index to JSON.",
+      "tags": [
+        "data-prep",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/baseline.py:naive_blend",
+      "type": "function",
+      "name": "naive_blend",
+      "filePath": "src/baseline.py",
+      "summary": "Averages frames A and C 50/50 — the motion-unaware baseline.",
+      "tags": [
+        "baseline",
+        "blend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/baseline.py:weighted_blend",
+      "type": "function",
+      "name": "weighted_blend",
+      "filePath": "src/baseline.py",
+      "summary": "Blends A and C with an adjustable alpha weight.",
+      "tags": [
+        "baseline",
+        "blend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/flow.py:compute_optical_flow",
+      "type": "function",
+      "name": "compute_optical_flow",
+      "filePath": "src/flow.py",
+      "summary": "Computes dense Farneback optical flow A->C and returns an (H,W,2) float32 dx/dy field.",
+      "tags": [
+        "optical-flow",
+        "farneback"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/flow.py:visualize_flow",
+      "type": "function",
+      "name": "visualize_flow",
+      "filePath": "src/flow.py",
+      "summary": "Encodes a flow field as an HSV image (hue=direction, value=magnitude) and saves it.",
+      "tags": [
+        "visualization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/warp.py:warp_frame",
+      "type": "function",
+      "name": "warp_frame",
+      "filePath": "src/warp.py",
+      "summary": "Inverse-warps a frame along the flow field by factor t using cv2.remap with bilinear interpolation.",
+      "tags": [
+        "warp",
+        "remap"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/warp.py:interpolate_with_flow",
+      "type": "function",
+      "name": "interpolate_with_flow",
+      "filePath": "src/warp.py",
+      "summary": "Warps A forward and C backward to the midpoint and averages them (flow interpolation without occlusion handling).",
+      "tags": [
+        "interpolation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "function",
+      "name": "compute_occlusion_mask",
+      "filePath": "src/interpolate.py",
+      "summary": "Forward-backward flow consistency check: warps backward flow by forward flow, measures residual magnitude, and maps it to a soft [0,1] mask via exp(-error/threshold).",
+      "tags": [
+        "occlusion",
+        "optical-flow"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "function",
+      "name": "interpolate_with_occlusion",
+      "filePath": "src/interpolate.py",
+      "summary": "Full Phase-1 prediction: bidirectional Farneback flow, occlusion mask, warp A & C to midpoint, and occlusion-weighted blend.",
+      "tags": [
+        "interpolation",
+        "occlusion",
+        "core"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/evaluate.py:compute_psnr",
+      "type": "function",
+      "name": "compute_psnr",
+      "filePath": "src/evaluate.py",
+      "summary": "Computes PSNR from mean squared error using NumPy (returns inf when identical).",
+      "tags": [
+        "metrics",
+        "psnr"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/evaluate.py:compute_ssim",
+      "type": "function",
+      "name": "compute_ssim",
+      "filePath": "src/evaluate.py",
+      "summary": "From-scratch SSIM using Gaussian-windowed luminance, contrast, and structure terms.",
+      "tags": [
+        "metrics",
+        "ssim"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/evaluate.py:evaluate_triplet",
+      "type": "function",
+      "name": "evaluate_triplet",
+      "filePath": "src/evaluate.py",
+      "summary": "Loads the ground-truth frame and returns {psnr, ssim} for a predicted frame.",
+      "tags": [
+        "evaluation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/pipeline.h",
+      "type": "file",
+      "name": "pipeline.h",
+      "filePath": "app/src/pipeline.h",
+      "language": "cpp",
+      "summary": "Declares the Pipeline class plus PipelineConfig/PipelineStatus and the progress-callback type.",
+      "tags": [
+        "header",
+        "pipeline",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/cuda_backend.h",
+      "type": "file",
+      "name": "cuda_backend.h",
+      "filePath": "app/src/cuda_backend.h",
+      "language": "cpp",
+      "summary": "Declares the CudaBackend class exposing GPU warp/blend/occlusion operations and device info.",
+      "tags": [
+        "header",
+        "cuda",
+        "gpu",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/cuda_backend.cpp",
+      "type": "file",
+      "name": "cuda_backend.cpp",
+      "filePath": "app/src/cuda_backend.cpp",
+      "language": "cpp",
+      "summary": "Optional GPU backend: detects a CUDA device and marshals cv::Mat data into the extern-C kernel host wrappers; compiles to no-ops when HAS_CUDA is off.",
+      "tags": [
+        "cuda",
+        "gpu",
+        "backend",
+        "interop",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/app.h",
+      "type": "file",
+      "name": "app.h",
+      "filePath": "app/src/app.h",
+      "language": "cpp",
+      "summary": "Declares the App controller and AppState enum: owns the CUDA backend, file paths, and worker-thread state.",
+      "tags": [
+        "header",
+        "app",
+        "threading",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/app.cpp",
+      "type": "file",
+      "name": "app.cpp",
+      "filePath": "app/src/app.cpp",
+      "language": "cpp",
+      "summary": "Application controller: launches the pipeline on a background std::thread, relays progress via a mutex-protected status, and supports cancellation.",
+      "tags": [
+        "app",
+        "threading",
+        "controller",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/main.cpp",
+      "type": "file",
+      "name": "main.cpp",
+      "filePath": "app/src/main.cpp",
+      "language": "cpp",
+      "summary": "Native executable entry point: parses args to run either a headless CLI conversion or the ImGui/GLFW desktop GUI (with a Windows WinMain variant).",
+      "tags": [
+        "entry-point",
+        "cli",
+        "gui",
+        "glfw",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/app.h:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "app/src/app.h",
+      "summary": "GUI/CLI application controller: owns the CudaBackend, runs the pipeline on a worker thread, and exposes thread-safe state, status, and file-path setters.",
+      "tags": [
+        "app",
+        "controller",
+        "threading"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/pipeline.h:Pipeline",
+      "type": "class",
+      "name": "Pipeline",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Runs the full video-to-video 2x interpolation; blocks until complete or cancelled and reports progress via callback.",
+      "tags": [
+        "pipeline"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/src/pipeline.h:PipelineConfig",
+      "type": "class",
+      "name": "PipelineConfig",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Config struct: input/output paths and the useCuda flag.",
+      "tags": [
+        "config",
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/pipeline.h:PipelineStatus",
+      "type": "class",
+      "name": "PipelineStatus",
+      "filePath": "app/src/pipeline.h",
+      "summary": "Progress struct: current/total frames, fps, and a status message.",
+      "tags": [
+        "status",
+        "struct"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "class",
+      "name": "CudaBackend",
+      "filePath": "app/src/cuda_backend.h",
+      "summary": "Optional GPU backend: detects a CUDA device and dispatches warp/blend/occlusion-mask kernels; degrades to no-ops without CUDA.",
+      "tags": [
+        "cuda",
+        "gpu",
+        "backend"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::startProcessing",
+      "type": "function",
+      "name": "App::startProcessing",
+      "filePath": "app/src/app.cpp",
+      "summary": "Transitions to Processing state and spawns the worker thread.",
+      "tags": [
+        "threading",
+        "controller"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::workerThread",
+      "type": "function",
+      "name": "App::workerThread",
+      "filePath": "app/src/app.cpp",
+      "summary": "Worker body: configures and runs the Pipeline, relaying progress and errors through the mutex-protected status.",
+      "tags": [
+        "threading",
+        "pipeline"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/app.cpp:App::init",
+      "type": "function",
+      "name": "App::init",
+      "filePath": "app/src/app.cpp",
+      "summary": "Initializes the CUDA backend and enables CUDA when a device is present.",
+      "tags": [
+        "init",
+        "cuda"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/src/main.cpp:runCli",
+      "type": "function",
+      "name": "runCli",
+      "filePath": "app/src/main.cpp",
+      "summary": "Headless conversion path: builds a PipelineConfig and runs the Pipeline with console progress.",
+      "tags": [
+        "cli"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/main.cpp:runGui",
+      "type": "function",
+      "name": "runGui",
+      "filePath": "app/src/main.cpp",
+      "summary": "Boots GLFW + OpenGL3 + Dear ImGui, creates the App and Gui, and runs the render loop.",
+      "tags": [
+        "gui",
+        "glfw",
+        "imgui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "function",
+      "name": "CudaBackend::warpFrame",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Copies frame+flow into the warp host wrapper, producing a GPU-warped frame (no-op without CUDA).",
+      "tags": [
+        "cuda",
+        "warp",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "function",
+      "name": "CudaBackend::blendFrames",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Dispatches the GPU blend host wrapper over two warped frames and a mask.",
+      "tags": [
+        "cuda",
+        "blend",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "function",
+      "name": "CudaBackend::computeOcclusionMask",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Dispatches the GPU occlusion-mask host wrapper over forward/backward flow.",
+      "tags": [
+        "cuda",
+        "occlusion",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "function",
+      "name": "CudaBackend::init",
+      "filePath": "app/src/cuda_backend.cpp",
+      "summary": "Queries the CUDA device count/properties and records GPU name and VRAM.",
+      "tags": [
+        "cuda",
+        "init"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:requirements.txt",
+      "type": "config",
+      "name": "requirements.txt",
+      "filePath": "requirements.txt",
+      "language": "txt",
+      "summary": "Python dependencies: OpenCV, NumPy, scikit-image (reference SSIM), and PyCUDA (Phase-2 GPU integration).",
+      "tags": [
+        "dependencies",
+        "python",
+        "requirements"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "language": "markdown",
+      "summary": "Project overview: explains the A/C->B interpolation concept, the seven pipeline stages, the directory layout, and quickstart usage.",
+      "tags": [
+        "documentation",
+        "overview",
+        "readme"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "language": "markdown",
+      "summary": "Repository guide for Claude Code: how to run the pipeline and standalone modules, build the CUDA kernels, the module data contract, and data layout.",
+      "tags": [
+        "documentation",
+        "guide",
+        "claude"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/__init__.py",
+      "language": "python",
+      "summary": "Empty package marker that makes src/ an importable Python package.",
+      "tags": [
+        "package-init",
+        "python"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/gui.h",
+      "type": "file",
+      "name": "gui.h",
+      "filePath": "app/src/gui.h",
+      "language": "cpp",
+      "summary": "Declares the Dear ImGui Gui class (compiled only when HAS_GUI).",
+      "tags": [
+        "header",
+        "gui",
+        "imgui",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/gui.cpp",
+      "type": "file",
+      "name": "gui.cpp",
+      "filePath": "app/src/gui.cpp",
+      "language": "cpp",
+      "summary": "Dear ImGui front-end: file pickers (tinyfiledialogs), backend/CUDA info, start/cancel controls, and a progress + status panel bound to the App controller.",
+      "tags": [
+        "gui",
+        "imgui",
+        "tinyfiledialogs",
+        "frontend",
+        "cpp"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/src/systray.h",
+      "type": "file",
+      "name": "systray.h",
+      "filePath": "app/src/systray.h",
+      "language": "cpp",
+      "summary": "Declares the Windows-only SysTray helper (compiled only on _WIN32).",
+      "tags": [
+        "header",
+        "systray",
+        "windows",
+        "cpp"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/src/systray.cpp",
+      "type": "file",
+      "name": "systray.cpp",
+      "filePath": "app/src/systray.cpp",
+      "language": "cpp",
+      "summary": "Windows system-tray integration: notification icon, balloon notifications, and restore-on-double-click handling.",
+      "tags": [
+        "systray",
+        "windows",
+        "shell",
+        "cpp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/warp_kernel.cu",
+      "type": "file",
+      "name": "warp_kernel.cu",
+      "filePath": "cuda/warp_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone teaching CUDA warp kernel: each thread inverse-warps one output pixel via bilinear interpolation of the source frame along the flow field.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp",
+        "bilinear",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/blend_kernel.cu",
+      "type": "file",
+      "name": "blend_kernel.cu",
+      "filePath": "cuda/blend_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone CUDA blend kernel: per-pixel occlusion-weighted combination of two warped frames (uses the early mask*0.5*(a+b)+(1-mask)*b formula).",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend",
+        "occlusion",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:cuda/psnr_kernel.cu",
+      "type": "file",
+      "name": "psnr_kernel.cu",
+      "filePath": "cuda/psnr_kernel.cu",
+      "language": "cuda",
+      "summary": "Standalone CUDA PSNR kernel with shared-memory parallel reduction over squared error, plus a full compute_psnr_cuda host wrapper.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "psnr",
+        "reduction",
+        "gpu"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/cuda/kernels.h",
+      "type": "file",
+      "name": "kernels.h",
+      "filePath": "app/cuda/kernels.h",
+      "language": "cuda",
+      "summary": "extern-C declarations for the GPU host wrappers (warp/blend/occlusion-mask/psnr) called from the C++ CudaBackend.",
+      "tags": [
+        "header",
+        "cuda",
+        "interop",
+        "extern-c"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/cuda/warp_host.cu",
+      "type": "file",
+      "name": "warp_host.cu",
+      "filePath": "app/cuda/warp_host.cu",
+      "language": "cuda",
+      "summary": "Host wrapper for the warp kernel: inlines warp_kernel and handles device malloc, H2D/D2H copies, and launch for the C++ app.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "warp",
+        "memory",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/cuda/blend_host.cu",
+      "type": "file",
+      "name": "blend_host.cu",
+      "filePath": "app/cuda/blend_host.cu",
+      "language": "cuda",
+      "summary": "Host wrapper for occlusion blend using the corrected mask*a+(1-mask)*c formula, with device allocation and transfers.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "blend",
+        "occlusion",
+        "gpu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/cuda/occlusion_kernel.cu",
+      "type": "file",
+      "name": "occlusion_kernel.cu",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "language": "cuda",
+      "summary": "GPU occlusion-mask kernel: bilinearly samples backward flow, computes forward-backward consistency error, and emits exp(-error/threshold); includes its host wrapper.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "occlusion",
+        "host-wrapper",
+        "gpu"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:cuda/Makefile",
+      "type": "config",
+      "name": "Makefile",
+      "filePath": "cuda/Makefile",
+      "language": "makefile",
+      "summary": "Make build for the standalone CUDA kernels: compiles each .cu into a shared library (.so/.dll) via nvcc with OS detection and a GPU/nvcc check target.",
+      "tags": [
+        "build",
+        "make",
+        "nvcc",
+        "cuda"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:app/CMakeLists.txt",
+      "type": "config",
+      "name": "CMakeLists.txt",
+      "filePath": "app/CMakeLists.txt",
+      "language": "cmake",
+      "summary": "CMake build for the native app: finds OpenCV, optionally enables CUDA, fetches GLFW + Dear ImGui, vendors tinyfiledialogs, and assembles the MiniDLSS executable with HAS_CUDA/HAS_GUI defines and CPack packaging.",
+      "tags": [
+        "build",
+        "cmake",
+        "dependencies",
+        "cuda",
+        "gui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/gui.h:Gui",
+      "type": "class",
+      "name": "Gui",
+      "filePath": "app/src/gui.h",
+      "summary": "Dear ImGui front-end bound to the App controller; renders file selection, backend info, controls, progress, and status.",
+      "tags": [
+        "gui",
+        "imgui"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/src/systray.h:SysTray",
+      "type": "class",
+      "name": "SysTray",
+      "filePath": "app/src/systray.h",
+      "summary": "Windows notification-area icon with balloon notifications and restore-on-double-click.",
+      "tags": [
+        "systray",
+        "windows"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "function",
+      "name": "warp_kernel",
+      "filePath": "cuda/warp_kernel.cu",
+      "summary": "Device kernel: one thread per output pixel inverse-warps along the flow with bilinear interpolation and boundary clamping.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/blend_kernel.cu:blend_kernel",
+      "type": "function",
+      "name": "blend_kernel",
+      "filePath": "cuda/blend_kernel.cu",
+      "summary": "Device kernel: per-pixel occlusion blend using mask*0.5*(a+b)+(1-mask)*b.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "function",
+      "name": "psnr_kernel",
+      "filePath": "cuda/psnr_kernel.cu",
+      "summary": "Device kernel: per-element squared error followed by shared-memory parallel reduction to block partial sums.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "reduction"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "type": "function",
+      "name": "compute_psnr_cuda",
+      "filePath": "cuda/psnr_kernel.cu",
+      "summary": "Host wrapper: allocates device memory, launches the PSNR kernel, sums partial sums, and returns PSNR in dB.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "psnr"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "function",
+      "name": "warp_kernel",
+      "filePath": "app/cuda/warp_host.cu",
+      "summary": "Inlined warp device kernel used by the app build (mirrors cuda/warp_kernel.cu).",
+      "tags": [
+        "cuda",
+        "kernel",
+        "warp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "function",
+      "name": "warp_frame_cuda",
+      "filePath": "app/cuda/warp_host.cu",
+      "summary": "extern-C host wrapper: device alloc, H2D/D2H copies, and launch of the warp kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "warp",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "function",
+      "name": "blend_kernel_v2",
+      "filePath": "app/cuda/blend_host.cu",
+      "summary": "Corrected occlusion blend device kernel: mask*a + (1-mask)*c.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "blend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "function",
+      "name": "blend_frames_cuda",
+      "filePath": "app/cuda/blend_host.cu",
+      "summary": "extern-C host wrapper for the corrected blend kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "blend",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "function",
+      "name": "occlusion_mask_kernel",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "Device kernel: per-pixel forward-backward consistency error -> exp(-error/threshold) soft mask.",
+      "tags": [
+        "cuda",
+        "kernel",
+        "occlusion"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "function",
+      "name": "bilinearSampleFlow",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "Device helper: bilinearly samples a 2-channel flow field at fractional coordinates.",
+      "tags": [
+        "cuda",
+        "device-fn",
+        "bilinear"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "function",
+      "name": "occlusion_mask_cuda",
+      "filePath": "app/cuda/occlusion_kernel.cu",
+      "summary": "extern-C host wrapper for the occlusion-mask kernel.",
+      "tags": [
+        "cuda",
+        "host-wrapper",
+        "occlusion",
+        "interop"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoReader",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoWriter",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/video_io.h",
+      "target": "class:app/src/video_io.h:VideoInfo",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/flow.cpp",
+      "target": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/warp.cpp",
+      "target": "function:app/src/warp.cpp:warpFrame",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "function:app/src/blend.cpp:blendWithMask",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/blend.cpp",
+      "target": "file:app/src/blend.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/flow.cpp",
+      "target": "file:app/src/flow.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/blend.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/flow.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/video_io.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.cpp",
+      "target": "file:app/src/warp.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/video_io.cpp",
+      "target": "file:app/src/video_io.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/warp.cpp",
+      "target": "file:app/src/warp.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:Pipeline::run",
+      "target": "function:app/src/pipeline.cpp:interpolatePair",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/flow.cpp:computeOpticalFlow",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/warp.cpp:warpFrame",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/blend.cpp:computeOcclusionMask",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/blend.cpp:blendWithMask",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/pipeline.cpp:interpolatePair",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/video_io.h:VideoReader",
+      "target": "function:app/src/video_io.cpp:VideoReader::open",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/video_io.h:VideoWriter",
+      "target": "function:app/src/video_io.cpp:VideoWriter::open",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/flow.cpp:computeOpticalFlow",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/warp.cpp:warpFrame",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/blend.cpp:computeOcclusionMask",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/blend.cpp:blendWithMask",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/warp.cpp:warpFrame",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/blend.cpp:blendWithMask",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/blend.cpp:computeOcclusionMask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "function:main.py:run_pipeline",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/extract.py",
+      "target": "function:src/extract.py:extract_frames",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/triplets.py",
+      "target": "function:src/triplets.py:create_triplets",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/baseline.py",
+      "target": "function:src/baseline.py:naive_blend",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/baseline.py",
+      "target": "function:src/baseline.py:weighted_blend",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/flow.py",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/flow.py",
+      "target": "function:src/flow.py:visualize_flow",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/warp.py",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/warp.py",
+      "target": "function:src/warp.py:interpolate_with_flow",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/interpolate.py",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/interpolate.py",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:compute_psnr",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:compute_ssim",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/evaluate.py",
+      "target": "function:src/evaluate.py:evaluate_triplet",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/baseline.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/evaluate.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/extract.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/flow.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/interpolate.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/triplets.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/warp.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/extract.py:extract_frames",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/triplets.py:create_triplets",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/baseline.py:naive_blend",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/interpolate.py:interpolate_with_occlusion",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/evaluate.py:evaluate_triplet",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:main.py:run_pipeline",
+      "target": "function:src/flow.py:visualize_flow",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/warp.py:interpolate_with_flow",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/flow.py:compute_optical_flow",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/interpolate.py:compute_occlusion_mask",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/interpolate.py:interpolate_with_occlusion",
+      "target": "function:src/warp.py:warp_frame",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/evaluate.py:evaluate_triplet",
+      "target": "function:src/evaluate.py:compute_psnr",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/evaluate.py:evaluate_triplet",
+      "target": "function:src/evaluate.py:compute_ssim",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/warp.py:warp_frame",
+      "target": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/interpolate.py:compute_occlusion_mask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/evaluate.py:compute_psnr",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.h",
+      "target": "class:app/src/app.h:App",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:Pipeline",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:PipelineConfig",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/pipeline.h",
+      "target": "class:app/src/pipeline.h:PipelineStatus",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.h",
+      "target": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::startProcessing",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "function:app/src/main.cpp:runCli",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "function:app/src/main.cpp:runGui",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.cpp",
+      "target": "file:app/src/app.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.h",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/app.h",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "file:app/src/cuda_backend.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "file:app/src/app.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/main.cpp",
+      "target": "file:app/src/pipeline.h",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/app.cpp:App::workerThread",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/app.cpp:App::startProcessing",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/main.cpp:runCli",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/main.cpp:runGui",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "target": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "target": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/pipeline.h:Pipeline",
+      "target": "function:app/src/pipeline.cpp:Pipeline::run",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::startProcessing",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::workerThread",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "function:app/src/app.cpp:App::init",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::warpFrame",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::blendFrames",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::computeOcclusionMask",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/cuda_backend.h:CudaBackend",
+      "target": "function:app/src/cuda_backend.cpp:CudaBackend::init",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:app/src/app.h:App",
+      "target": "class:app/src/cuda_backend.h:CudaBackend",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/src/app.cpp:App::workerThread",
+      "target": "class:app/src/pipeline.h:Pipeline",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:requirements.txt",
+      "target": "file:main.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "config:cuda/Makefile",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/gui.h",
+      "target": "class:app/src/gui.h:Gui",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/systray.h",
+      "target": "class:app/src/systray.h:SysTray",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:cuda/warp_kernel.cu",
+      "target": "function:cuda/warp_kernel.cu:warp_kernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:cuda/blend_kernel.cu",
+      "target": "function:cuda/blend_kernel.cu:blend_kernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:cuda/psnr_kernel.cu",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:cuda/psnr_kernel.cu",
+      "target": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/warp_host.cu",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/warp_host.cu",
+      "target": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/blend_host.cu",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/blend_host.cu",
+      "target": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/cuda/warp_host.cu:warp_frame_cuda",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/cuda/blend_host.cu:blend_frames_cuda",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_cuda",
+      "target": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:app/cuda/occlusion_kernel.cu:occlusion_mask_kernel",
+      "target": "function:app/cuda/occlusion_kernel.cu:bilinearSampleFlow",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:cuda/psnr_kernel.cu:compute_psnr_cuda",
+      "target": "function:cuda/psnr_kernel.cu:psnr_kernel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:cuda/warp_kernel.cu:warp_kernel",
+      "target": "function:app/cuda/warp_host.cu:warp_kernel",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:cuda/blend_kernel.cu:blend_kernel",
+      "target": "function:app/cuda/blend_host.cu:blend_kernel_v2",
+      "type": "similar_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/src/main.cpp",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/warp_host.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/blend_host.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:app/CMakeLists.txt",
+      "target": "file:app/cuda/occlusion_kernel.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/warp_kernel.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/blend_kernel.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:cuda/Makefile",
+      "target": "file:cuda/psnr_kernel.cu",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:app/src/gui.cpp",
+      "target": "file:app/src/gui.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/gui.cpp",
+      "target": "file:app/src/app.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/systray.cpp",
+      "target": "file:app/src/systray.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/cuda/warp_host.cu",
+      "target": "file:app/cuda/kernels.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/cuda/blend_host.cu",
+      "target": "file:app/cuda/kernels.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/cuda/occlusion_kernel.cu",
+      "target": "file:app/cuda/kernels.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/src/cuda_backend.cpp",
+      "target": "file:app/cuda/kernels.h",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:src/__init__.py",
+      "type": "related",
+      "weight": 0.5
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:python-reference-pipeline",
+      "name": "Python Reference Pipeline (Phase 1)",
+      "description": "The from-scratch Python/OpenCV implementation: extract frames, build triplets, baseline blend, optical flow, occlusion-aware warp/blend, and PSNR/SSIM evaluation. This is the readable reference the native app and CUDA kernels port.",
+      "nodeIds": [
+        "file:main.py",
+        "file:src/__init__.py",
+        "file:src/extract.py",
+        "file:src/triplets.py",
+        "file:src/baseline.py",
+        "file:src/flow.py",
+        "file:src/warp.py",
+        "file:src/interpolate.py",
+        "file:src/evaluate.py"
+      ]
+    },
+    {
+      "id": "layer:native-pipeline-core",
+      "name": "Native Pipeline Core (C++)",
+      "description": "The C++ port of the interpolation algorithms and video I/O — optical flow, warping, occlusion mask/blend, the video reader/writer, the pipeline orchestrator, and the CUDA backend bridge that marshals data to GPU kernels.",
+      "nodeIds": [
+        "file:app/src/flow.h",
+        "file:app/src/flow.cpp",
+        "file:app/src/warp.h",
+        "file:app/src/warp.cpp",
+        "file:app/src/blend.h",
+        "file:app/src/blend.cpp",
+        "file:app/src/video_io.h",
+        "file:app/src/video_io.cpp",
+        "file:app/src/pipeline.h",
+        "file:app/src/pipeline.cpp",
+        "file:app/src/cuda_backend.h",
+        "file:app/src/cuda_backend.cpp"
+      ]
+    },
+    {
+      "id": "layer:application-shell-ui",
+      "name": "Application Shell & UI",
+      "description": "The desktop application around the pipeline: CLI/GUI entry point, the threaded App controller, the Dear ImGui front-end, and the Windows system-tray integration.",
+      "nodeIds": [
+        "file:app/src/app.h",
+        "file:app/src/app.cpp",
+        "file:app/src/main.cpp",
+        "file:app/src/gui.h",
+        "file:app/src/gui.cpp",
+        "file:app/src/systray.h",
+        "file:app/src/systray.cpp"
+      ]
+    },
+    {
+      "id": "layer:cuda-acceleration",
+      "name": "CUDA Acceleration (Phase 2)",
+      "description": "GPU kernels and their host wrappers: standalone teaching kernels (warp/blend/PSNR) and the app-integrated host wrappers (warp/blend/occlusion mask) callable from the C++ CudaBackend via extern-C.",
+      "nodeIds": [
+        "file:cuda/warp_kernel.cu",
+        "file:cuda/blend_kernel.cu",
+        "file:cuda/psnr_kernel.cu",
+        "file:app/cuda/kernels.h",
+        "file:app/cuda/warp_host.cu",
+        "file:app/cuda/blend_host.cu",
+        "file:app/cuda/occlusion_kernel.cu"
+      ]
+    },
+    {
+      "id": "layer:build-configuration",
+      "name": "Build & Configuration",
+      "description": "Build and dependency definitions: the CMake build for the native app (OpenCV/CUDA/GLFW/ImGui), the Makefile for the standalone CUDA kernels, and the Python requirements.",
+      "nodeIds": [
+        "config:app/CMakeLists.txt",
+        "config:cuda/Makefile",
+        "config:requirements.txt"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentation",
+      "description": "Project documentation: the README overview and the CLAUDE.md repository guide.",
+      "nodeIds": [
+        "document:README.md",
+        "document:CLAUDE.md"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with the README to understand the goal: predict the missing middle frame B from frames A and C using optical flow and occlusion-aware warping, then measure quality against ground truth.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Pipeline Entry Point",
+      "description": "main.py orchestrates the whole Phase-1 run: extract -> triplets -> per-triplet baseline vs flow interpolation -> PSNR/SSIM report. Read it to see how the stages connect.",
+      "nodeIds": [
+        "file:main.py"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Preparing Data: Frames & Triplets",
+      "description": "extract.py decodes the video into PNGs; triplets.py groups them into (A,B,C) sets where B is the ground-truth midpoint.",
+      "nodeIds": [
+        "file:src/extract.py",
+        "file:src/triplets.py"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "The Baseline to Beat",
+      "description": "baseline.py just averages A and C. It has no motion awareness, so moving objects ghost — this is the reference the flow method must outperform.",
+      "nodeIds": [
+        "file:src/baseline.py"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Estimating Motion: Optical Flow",
+      "description": "flow.py computes dense Farneback flow between frames and can visualize it as an HSV motion field.",
+      "nodeIds": [
+        "file:src/flow.py"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Moving Pixels: Warping",
+      "description": "warp.py remaps a frame along the flow to the midpoint. interpolate_with_flow warps A forward and C backward and averages them.",
+      "nodeIds": [
+        "file:src/warp.py"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Handling Occlusions (The Core Idea)",
+      "description": "interpolate.py adds the key trick: a forward-backward consistency mask down-weights pixels where the two flows disagree, then blends the two warps accordingly.",
+      "nodeIds": [
+        "file:src/interpolate.py"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Measuring Quality",
+      "description": "evaluate.py implements PSNR and SSIM from scratch to score predictions against ground truth.",
+      "nodeIds": [
+        "file:src/evaluate.py"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Porting to a Native App",
+      "description": "pipeline.cpp is the C++ video-to-video pipeline that interpolates every consecutive pair and writes a 2x-FPS output; main.cpp chooses between a headless CLI and the GUI.",
+      "nodeIds": [
+        "file:app/src/pipeline.cpp",
+        "file:app/src/main.cpp"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "The C++ Algorithm Ports",
+      "description": "flow.cpp, warp.cpp, and blend.cpp mirror the Python stages using OpenCV in C++ — the CPU path of the native pipeline.",
+      "nodeIds": [
+        "file:app/src/flow.cpp",
+        "file:app/src/warp.cpp",
+        "file:app/src/blend.cpp"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "GPU Acceleration with CUDA",
+      "description": "The CUDA kernels reimplement warp, blend, occlusion mask, and PSNR on the GPU. cuda_backend.cpp bridges OpenCV Mats to the extern-C host wrappers in app/cuda/.",
+      "nodeIds": [
+        "file:app/src/cuda_backend.cpp",
+        "file:app/cuda/occlusion_kernel.cu",
+        "file:cuda/warp_kernel.cu"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "The Desktop GUI",
+      "description": "app.cpp runs the pipeline on a worker thread with thread-safe status; gui.cpp renders the Dear ImGui front-end with file pickers, controls, and a progress bar.",
+      "nodeIds": [
+        "file:app/src/app.cpp",
+        "file:app/src/gui.cpp"
+      ]
+    },
+    {
+      "order": 13,
+      "title": "Building It All",
+      "description": "CMakeLists.txt assembles the native app (fetching GLFW/ImGui, optional CUDA); the Makefile builds the standalone CUDA kernels into shared libraries.",
+      "nodeIds": [
+        "config:app/CMakeLists.txt",
+        "config:cuda/Makefile"
+      ]
+    }
+  ]
+}
